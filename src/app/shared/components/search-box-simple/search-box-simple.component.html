@@ -1,0 +1,50 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+    <div
+        class="
+            hidden
+            sm:flex
+            items-center
+            bg-card
+            rounded-full
+            overflow-hidden
+            relative
+            ltr:pl-5
+            ltr:pr-1
+            rtl:pr-5
+            h-12
+            w-full
+            mx-auto"
+        [ngClass]="style"
+        >
+        
+        <input
+            class="
+                border-0
+                h-12
+                outline-none
+                rtl:pr-4
+                placeholder:text-secondary
+                bg-card
+                flex-auto"
+            formControlName="searchString"
+            maxlength="30"
+            placeholder="Búsqueda rápida..." type="text" />
+
+        <button
+            (click)="reset()"
+            *ngIf="form.valid || isActive"
+            @scaleInOut
+            class="mr-4"
+            type="button">
+            <ic-icon [icon]="icClose" class="flex-none" size="16px"></ic-icon>
+        </button>
+
+        <button
+            type="submit"
+            [disabled]="!form.valid"
+            class="bg-accent rounded-full text-white p-2">
+            <ic-icon [icon]="icSearch" class="flex-none" size="24px"></ic-icon>
+        </button>
+
+    </div>
+</form>

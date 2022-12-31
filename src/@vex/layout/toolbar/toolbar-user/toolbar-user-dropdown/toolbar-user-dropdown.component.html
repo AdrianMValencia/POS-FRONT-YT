@@ -1,0 +1,83 @@
+<div class="dropdown">
+  <div class="dropdown-header" fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <div class="dropdown-heading-icon" fxLayout="row" fxLayoutAlign="center center">
+        <mat-icon [icIcon]="icPerson"></mat-icon>
+      </div>
+      <div class="dropdown-heading">{{username}}</div>
+    </div>
+
+    <!-- <button [matMenuTriggerFor]="settingsMenu"
+            mat-icon-button
+            matTooltip="Settings"
+            matTooltipPosition="before"
+            type="button">
+      <mat-icon [icIcon]="icSettings" class="notifications-header-icon"></mat-icon>
+    </button> -->
+  </div>
+
+  <div class="dropdown-content">
+    <a (click)="close()"
+       *ngFor="let item of items; trackBy: trackById"
+       [routerLink]="item.route"
+       class="notification"
+       fxLayout="row"
+       fxLayoutAlign="start center"
+       matRipple>
+      <mat-icon [icIcon]="item.icon"
+                [ngClass]="item.colorClass"
+                class="notification-icon"
+                fxFlex="none"></mat-icon>
+      <div fxFlex="auto">
+        <div class="notification-label">{{ item.label }}</div>
+        <div class="notification-description">{{ item.description }}</div>
+      </div>
+      <mat-icon [icIcon]="icChevronRight" class="notification-chevron" fxFlex="none"></mat-icon>
+    </a>
+  </div>
+
+  <div class="dropdown-footer" fxLayout="row" fxLayoutAlign="space-between center">
+    <!-- <button [matMenuTriggerFor]="statusMenu" class="dropdown-footer-select" mat-button type="button">
+      <ng-container *ngFor="let status of statuses; trackBy: trackById">
+        <span *ngIf="status === activeStatus">
+          <mat-icon [icIcon]="status.icon" [ngClass]="status.colorClass"></mat-icon>
+          <span>{{ status.label }}</span>
+          <mat-icon [icIcon]="icArrowDropDown" class="dropdown-footer-select-caret"></mat-icon>
+        </span>
+      </ng-container>
+    </button> -->
+    <a (click)="close()" color="primary" mat-button>SALIR DEL SISTEMA</a>
+  </div>
+</div>
+
+<mat-menu #statusMenu="matMenu" xPosition="before" yPosition="below">
+  <button (click)="setStatus(status)"
+          *ngFor="let status of statuses; trackBy: trackById"
+          mat-menu-item>
+    <ic-icon [icon]="status.icon" [ngClass]="status.colorClass" inline="true" size="24px"></ic-icon>
+    <span>{{ status.label }}</span>
+  </button>
+</mat-menu>
+
+
+<mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icBusiness"></mat-icon>
+    <span>Change Address</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icVerifiedUser"></mat-icon>
+    <span>Change Username</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icLock"></mat-icon>
+    <span>Change Password</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icNotificationsOff"></mat-icon>
+    <span>Disable Notifications</span>
+  </button>
+</mat-menu>

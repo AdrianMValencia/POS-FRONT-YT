@@ -1,0 +1,41 @@
+<div @stagger class="max-w-xxxs w-full">
+    <div class="h-14 mb-6 flex bg-primary px-gutter sm:px-0" fxLayout="row" fxLayoutAlign="start center"
+        *ngIf="!hiddenHeader">
+        <button (click)="emitClick()" *ngIf="buttonShow" class="flex-auto bg-accent text-accent-contrast"
+            [ngClass]="{'rounded-dropdown': isDropdown}" mat-raised-button color="purple" type="button">
+            <span class="mr-1">{{ buttonLabel }} </span>
+        </button>
+
+        <button *ngIf="isDropdown"
+            class="flex bg-accent text-accent-contrast items-center justify-center rounded-r-md rounded-l-none button-arrow"
+            color="purple" type="button" mat-button #trigger [matMenuTriggerFor]="normalMenu">
+            <ic-icon [icon]="icMenuDown" class="top-center" size="24px"></ic-icon>
+        </button>
+
+        <mat-menu #normalMenu="matMenu" xPosition="before">
+            <button (click)="emitClick2()" mat-menu-item>{{ buttonLabel2 }}</button>
+        </mat-menu>
+
+    </div>
+
+    <div class="px-gutter sm:px-0">
+
+        <ng-container *ngFor="let item of items">
+
+            <a (click)="setFilter(item)" *ngIf="item.type === 'link'" @fadeInRight [class.bg-hover]="isActive(item.id)"
+                [class.text-primary-500]="isActive(item.id)" class="list-item mt-2 no-underline flex items-center h-10"
+                matRipple>
+                <ic-icon [icon]="item.icon" [ngClass]="item.classes?.icon" class="ltr:mr-3 rtl:ml-3"
+                    [size]="item.size ? item.size : '24px'"></ic-icon>
+                <span>{{ item.label }}</span>
+            </a>
+
+            <h3 *ngIf="item.type === 'subheading'" @fadeInRight
+                class="caption text-secondary uppercase font-medium mb-0 mt-6">{{ item.label }}
+            </h3>
+
+        </ng-container>
+
+    </div>
+
+</div>

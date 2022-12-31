@@ -1,0 +1,10 @@
+.button {
+
+  &.active {
+    background: var(--background-hover);
+  }
+
+  .mat-icon {
+    color: var(--toolbar-icon-color);
+  }
+}

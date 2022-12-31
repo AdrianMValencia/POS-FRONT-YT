@@ -1,0 +1,25 @@
+<div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+        <h2 class="headline m-0 text-xl" fxFlex="auto" [ngClass]="{ 'text-red': data.danger, 'text-accent': !data.danger }">{{data.title}}</h2>
+        <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+            <mat-icon [icIcon]="icClose"></mat-icon>
+        </button>
+    </div>
+
+    <mat-divider class="-mx-6 text-border"></mat-divider>
+
+    <mat-dialog-content fxLayout="column" class="mt-6">
+
+        <div class="mb-6">
+            <p [innerHTML]="data.text"></p>
+        </div>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close type="button">CANCELAR</button>
+        <button [color]="data.danger ? 'warn' : 'accent'" mat-raised-button (click)="aceptar()">{{data.button}}</button>
+    </mat-dialog-actions>
+
+</div>

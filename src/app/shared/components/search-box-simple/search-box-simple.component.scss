@@ -1,0 +1,12 @@
+input {
+    min-width: 250px;
+}
+
+button[type="submit"]:disabled {
+    opacity: 0.2;
+    cursor:default;
+}
+
+.main-label-101 {
+    min-width: 101px;
+}

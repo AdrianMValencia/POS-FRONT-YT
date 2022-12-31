@@ -1,0 +1,98 @@
+@import "~simplebar/dist/simplebar.css";
+@import "~highlight.js/styles/androidstudio.css";
+// Vex Core
+@import "./@vex/styles/core";
+
+:root {
+  --color-accent: 210, 155, 253;
+  --color-blue: 37, 36, 64;
+  --color-primary: 34, 113, 179;
+  // --color-accent: 233, 138, 21;
+  // --color-blue: 37, 36, 64;
+  // --color-primary: 34, 113, 179;
+  // --color-accent: 112, 50, 177;
+  // --color-blue: 22, 32, 141;
+  // --color-primary: 125, 206, 181;
+}
+.mat-simple-snackbar-action > button {
+  color: rgba(var(--color-primary));
+} // action
+
+th.mat-sort-header-text-right > div {
+  justify-content: flex-start;
+  flex-direction: row-reverse;
+  .mat-sort-header-content {
+    margin-left: 6px;
+  }
+}
+
+.label-grey {
+  background-color: #ebebeb;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #a8a8a8;
+}
+
+.label-green {
+  background-color: #d8efd0;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #82a875;
+}
+
+.label-amber {
+  background-color: #fdeac0;
+  border: 1px solid rgba(253, 234, 192, 0.4);
+  color: #c68f14;
+}
+
+.label-red {
+  background-color: #f3cfcd;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #f44336;
+}
+
+.inner-section-tab-card {
+  min-height: 300px;
+}
+
+.custom-disabled {
+
+  .mat-form-field-appearance-outline.mat-form-field-disabled
+    .mat-form-field-label.mat-form-field-empty {
+    color: rgba(0, 0, 0, 0.3) !important;
+  }
+  .mat-select-disabled .mat-select-value,
+  .mat-input-element:disabled {
+    color: rgba(0, 0, 0, 1) !important;
+  }
+  .mat-form-field-appearance-outline.mat-form-field-disabled
+    .mat-form-field-label {
+    color: rgba(0, 0, 0, 0.6) !important;
+  }
+
+  .mat-form-field-appearance-outline.mat-form-field-disabled
+    .mat-form-field-outline {
+    color: rgba(82, 63, 105, 0.12);
+  }
+
+  .swal2-html-container {
+    white-space: pre-line;
+  }
+}
+.extra-filters-active::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid white;
+  right: 0;
+  top: 0;
+  background-color: red;
+  border-radius: 6px;
+  display: inline-block;
+}
+.mat-row:nth-child(even){
+  background-color: #FFFFFF;
+}
+.mat-row:nth-child(odd){
+  background-color: #FBFBFB;
+}

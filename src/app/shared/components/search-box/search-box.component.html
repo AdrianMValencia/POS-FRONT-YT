@@ -1,0 +1,70 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="text-black">
+    <div class="
+            hidden
+            sm:flex
+            items-center
+            bg-card
+            rounded-full
+            overflow-hidden
+            relative
+            ltr:pl-5
+            ltr:pr-1
+            rtl:pr-5
+            h-12
+            w-full
+            mx-auto" [ngClass]="style">
+
+        <button type="button" [matMenuTriggerFor]="menu2" class="flex items-center mr-2"
+            *ngIf="searchOptions2.length > 0">
+            <span class="mr-1">{{labelSelection2.label}} </span>
+            <ic-icon [icon]="arrowDropDown" inline="true" class="mt-1" size="24px"></ic-icon>
+        </button>
+
+        <button type="button" [matMenuTriggerFor]="menu" class="flex items-center" [ngClass]="classStyle">
+            <span class="mr-1">{{labelSelection.label}}</span>
+            <ic-icon [icon]="arrowDropDown" inline="true" class="mt-1" size="24px"></ic-icon>
+        </button>
+
+        <input type="hidden" formControlName="searchSource">
+
+        <input class="
+                border-0
+                h-12
+                outline-none
+                ltr:pl-4
+                rtl:pr-4
+                placeholder:text-secondary
+                bg-card
+                flex-auto" formControlName="searchString" maxlength="30" matTooltip="{{validation_desc}}"
+            placeholder="{{labelSelection.placeholder}}" type="text" />
+
+        <button (click)="reset()" *ngIf="!formInvalid" @scaleInOut class="mr-4" type="button">
+            <ic-icon [icon]="icClose" class="flex-none" size="16px"></ic-icon>
+        </button>
+
+
+        <button type="submit"
+            [ngClass]="{'cursor-not-allowed bg-accent-disabled': formInvalid, 'bg-accent': !formInvalid}"
+            class="bg-accent rounded-full text-white p-2">
+            <ic-icon [icon]="icSearch" class="flex-none" size="24px"></ic-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+            <div *ngFor="let option of searchOptions">
+                <ng-container *ngIf="!option.hidden">
+                    <button mat-menu-item (click)="changeSelection(option)">{{option.label}}</button>
+                </ng-container>
+
+            </div>
+
+
+        </mat-menu>
+
+
+        <mat-menu #menu2="matMenu">
+            <button mat-menu-item *ngFor="let option of searchOptions2"
+                (click)="changeSelection2(option)">{{option.label}}</button>
+        </mat-menu>
+
+    </div>
+</form>

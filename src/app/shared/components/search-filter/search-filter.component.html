@@ -1,0 +1,63 @@
+<form class="text-black">
+    <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+        <h2 class="headline m-0 text-xl text-accent" fxFlex="auto">
+            Filtros de Búsqueda
+        </h2>
+        <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+            <mat-icon [icIcon]="icClose"></mat-icon>
+        </button>
+    </div>
+
+    <div [formGroup]="dateOne" fxLayout="row" fxLayoutGap="16px">
+
+        <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>{{labelDateOne}}</mat-label>
+            <mat-date-range-input [rangePicker]="dateOnepicker">
+                <input matStartDate placeholder="Fecha Inicio" formControlName="startDate">
+                <input matEndDate placeholder="Fecha Fin" formControlName="endDate">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="dateOnepicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #dateOnepicker></mat-date-range-picker>
+            <mat-error
+                *ngIf="dateOne.get('startDate').hasError('required') && dateOne.get('endDate').hasError('required')">
+                {{labelDateOne}} es requirida.
+            </mat-error>
+            <mat-error
+                *ngIf="!dateOne.get('startDate').hasError('required') && dateOne.get('endDate').hasError('required') ">
+                {{labelDateOne}} Fin es requirida.
+            </mat-error>
+        </mat-form-field>
+
+    </div>
+
+    <div [formGroup]="dateTwo" fxLayout="row" fxLayoutGap="16px" *ngIf="showDateTwo">
+
+        <mat-form-field appearance="outline" fxFlex="100">
+            <mat-label>{{labelDateTwo}}</mat-label>
+            <mat-date-range-input [rangePicker]="dateTwopicker">
+                <input matStartDate placeholder="Fecha Inicio" formControlName="startDateTwo">
+                <input matEndDate placeholder="Fecha Fin" formControlName="endDateTwo">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="dateTwopicker"></mat-datepicker-toggle>
+            <mat-date-range-picker #dateTwopicker></mat-date-range-picker>
+            <mat-error
+                *ngIf="dateTwo.get('startDateTwo').hasError('required') && dateTwo.get('endDateTwo').hasError('required')">
+                {{labelDateTwo}} es requirida.
+            </mat-error>
+            <mat-error
+                *ngIf="!dateTwo.get('startDateTwo').hasError('required') && dateTwo.get('endDateTwo').hasError('required') ">
+                {{labelDateTwo}} Fin es requirida.
+            </mat-error>
+        </mat-form-field>
+
+    </div>
+
+
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close type="button" (click)="clear()"
+            [disabled]="dateOne.valid == true ||  dateTwo.valid == true ? false: true">LIMPIAR FILTROS</button>
+        <button color="accent" mat-raised-button type="button" (click)="submit()"
+            [disabled]="dateOne.valid == false &&  dateTwo.valid == false? true : false">FILTRAR</button>
+    </mat-dialog-actions>
+
+</form>

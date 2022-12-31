@@ -1,0 +1,102 @@
+<vex-scrollbar class="h-full relative">
+    <div fxLayout="column" fxLayoutAlign="space-between">
+
+        <table 
+            mat-table
+            matSort
+            [@stagger]="dataSource.filteredData"
+            [dataSource]="dataSource"
+            class="w-full"
+            fxFlex="auto"
+            *ngIf="data"
+            aria-label="Tabla genérica"
+            aria-describedby="Información según el módulo en el que se utilice este componente">
+
+            <ng-container  *ngFor="let column of columns">
+
+                <ng-container *ngIf="column.type === 'checkbox'" [matColumnDef]="column.property">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header disabled scope="col"> {{ column.label }}</th>
+                    <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>
+                        <ic-icon [icon]="icRadioButtonChecked" class="text-accent" [size]="16" *ngIf="row['Selected']"></ic-icon>
+                        <ic-icon [icon]="icRadioButtonUnchecked" class="text-primary" [size]="16" *ngIf="!row['Selected']"></ic-icon>
+                    </td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef scope="col"> {{ column.label }}</th>
+                    <td mat-cell *matCellDef="let row" [ngClass]="column.cssClasses">{{
+                        row[column.property]
+                        }}</td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type === 'currency'" [matColumnDef]="column.property">
+                    <th mat-header-cell mat-sort-header [ngClass]="['mat-sort-header-text-right']" *matHeaderCellDef scope="col"> {{ column.label }}</th>
+                    <td mat-cell *matCellDef="let row" class="text-right" [ngClass]="column.cssClasses">{{
+                        row[column.property]|currency:'':''
+                        }}</td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type === 'byteConversion'" [matColumnDef]="column.property">
+                    <th mat-header-cell mat-sort-header [ngClass]="['mat-sort-header-text-right']" *matHeaderCellDef scope="col"> {{ column.label }}</th>
+                    <td mat-cell *matCellDef="let row" class="text-right" [ngClass]="column.cssClasses">{{
+                        row[column.property]|byteConversion }}</td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type === 'date'" [matColumnDef]="column.property">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header scope="col"> {{ column.label }}</th>
+                    <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property]|date:'dd-MM-YYYY' }}</td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type === 'datetime'" [matColumnDef]="column.property">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header scope="col"> {{ column.label }}</th>
+                    <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>{{ row[column.property]|date:'dd-MM-YYYY hh:HH:ss a' }}</td>
+                </ng-container>
+
+
+                <ng-container *ngIf="column.type === 'button'" [matColumnDef]="column.property">
+                    <th mat-header-cell *matHeaderCellDef scope="col"> {{ column.label }}</th>
+                    <td mat-cell *matCellDef="let row" [ngClass]="column.cssClasses">
+                        <ng-container *ngFor="let btn of column.buttonItems">
+                            <ng-container *ngIf="(btn.buttonCondition == null || row[btn.buttonCondition])">
+                                <button color="accent" mat-button type="button" (click)="rowClick.emit({ 'action': btn.buttonAction, 'row': row })" *ngIf="!btn.hidden">{{btn.buttonLabel}}</button>
+                            </ng-container>
+                        </ng-container>
+                    </td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type === 'badge'" [matColumnDef]="column.property">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header disabled scope="col"> {{ column.label }}</th>
+                    <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>
+
+                        <div
+                        [ngClass]="row['badgeColor']"
+                        class="rounded px-2 py-1 font-medium text-xs inline-block">
+                            {{ row[column.property]|uppercase }}
+                        </div>
+
+                    </td>
+                </ng-container>
+
+            </ng-container>
+            
+            <tr mat-header-row *matHeaderRowDef="visibleColumns"></tr>
+            <tr mat-row
+                *matRowDef="let row; columns: visibleColumns; let i = index"
+                @fadeInUp
+                class="hover:bg-hover"
+                [ngClass]="{'selected': row['Selected'], 'cursor-pointer': selectable}"
+                (click)="selectable ? changeSelection(row) : false">
+            </tr>
+        </table>
+
+        <mat-paginator
+            [fxHide]="dataSource.filteredData.length === 0"
+            pageSize="10"
+            [showFirstLastButtons]="true"
+            [pageSizeOptions]="[10, 25, 100]"
+            class="sticky bottom-0 left-0 right-0 border-t"
+            fxFlex="none">
+        </mat-paginator>
+
+    </div>
+</vex-scrollbar>
