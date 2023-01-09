@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: process.env.NODE_ENV === 'production',
+    enabled: false,
     content: [
       './src/**/*.{html,ts}'
     ]
@@ -10,9 +10,14 @@ module.exports = {
   separator: ':',
   theme: {
     screens: {
+      xs: '460px',
       sm: '600px',
+      smd: '768px',
       md: '960px',
-      lg: '1280px'
+      lg: '1280px',
+      xl: '1366px',
+      xxl: '1925px',
+
     },
     colors: {
       current: 'currentColor',
@@ -23,6 +28,10 @@ module.exports = {
       'contrast-black': 'black',
       'contrast-white': 'white',
 
+      grays: {
+        light: '#D6D6D6',
+        DEFAULT: '#969CA7',
+      },
       gray: {
         light: 'rgba(158, 158, 158, 0.1)',
         DEFAULT: 'rgb(158, 158, 158)',
@@ -73,37 +82,217 @@ module.exports = {
       },
       accent: {
         light: 'rgba(var(--color-accent), .1)',
-        disabled: 'rgba(var(--color-accent), .5)',
         DEFAULT: 'rgb(var(--color-accent))',
       },
       warn: {
         light: 'rgba(var(--color-warn), .1)',
         DEFAULT: 'rgb(var(--color-warn))',
+      },
+      //NEW COLORS
+      'am-base':{
+        background : '#F4F6FF'
+      },
+      'am-main-blue':{
+        DEFAULT: '#7084E3',
+        light: '#d0d8ff',
+        dark: '#00004d'
+      },
+      'am-gray':{
+        DEFAULT: '#9a9a9a',
+        light: '#bebebe',
+        dark: '#666666'
+      },
+      'am-new-green': {
+        DEFAULT: '#77dea2',
+        light: '#baeed0',
+        dark: '#27834d'
+      },
+      'am-new-orange': {
+        DEFAULT: '#f78842',
+        light: '#fbc3a0',
+        dark: '#af5f2e'
+      },
+      'am-coral': {
+        DEFAULT: '#ee8f72',
+        light: '#f6c7b8',
+        dark: '#be6a50'
+      },
+      'am-teal': {
+        DEFAULT: '#81e6e2',
+        light: '#b3f0ed',
+        dark: '#449D99'
+      },
+      'am-new-red': {
+        DEFAULT: '#de7777',
+        light: '#f2b0b0',
+        dark: '#ac3d3d'
+      },
+      'am-new-yellow': {
+        DEFAULT: '#ffce00',
+        light: '#ffeb99',
+        dark: '#a56c00'
+      },
+      'am-new-pink': {
+        DEFAULT: '#d977dd',
+        light: '#ecbaee',
+        dark: '#97569a'
+      },
+      'am-new-purple': {
+        DEFAULT: '#8f7ee3',
+        light: '#baacff',
+        dark: '#7164b1'
+      },
+
+      //COLORS
+      'am-purple' :  {
+        transparent: '#757de338',
+        relight: '#f0f1ff',
+        light: '#dbdcff',
+        medium: '#927DEA',
+        dark: '#465499',
+        DEFAULT: '#7084E3'
+      },
+      'am-green' : {
+        light : '#77DEA2',
+        brightest : '#77DEA280',
+        cyan: '#26b28f',
+        dark: '#1f8f4e',
+        aqua: '#7DEAB4',
+       "brightest-transparent": '#e9f8ee',
+       "hover": '#F5FCF7',
+        DEFAULT: '#54C931'
+        
+      },
+      'am-red' : {
+        alive : '#E56262',
+        light: '#ffcece',
+        dark: '#d93d3d',
+        intense : '#f00846',
+        DEFAULT:'#DE7777'
+      },
+      'am-grey' : {
+        light : '#BFC4FF1F',
+        dark: '#2C303E',
+        'medium' : '#bbbbbb',
+        transparent: '#BFC4FF4B',
+        DEFAULT: '#666666'
+      },
+      'am-pink' : {
+        light: '#edcff0',
+        dark: '#a941ae',
+        brightest : '#d977dd3b',
+        rose: '#F8BBD0',
+        DEFAULT: '#D977DD'
+      },
+      'am-orange': {
+        light : '#f89103',
+        relight : '#fff1e8',
+        dark: '#b57c00',
+        DEFAULT: '#f78842'
+      },
+      'am-cyan' : {
+      light: '#b3edf4',
+      dark: '#129aa6',
+      blue: '#0061FD60',
+      green: '#b9eadf',
+      DEFAULT: '#18D9EA',
+      },
+      'am-blue' : {
+        light: '#92C9F2',
+        DEFAULT: '#0061FD60',
+        dark: '#5784a5',
+      },
+      'am-yellow': {
+        resalt : '#FFCE00',
+        light: '#f8e9ae',
+        dark: '#c18b11',
+        DEFAULT : '#FAD073'
+      },
+      'am-cream': {
+        entry: '#81E6AB',
+        entry_light: '#81E6AB33',
+        entry_text: '#81E6ABB3',
+
+        lunchgo: '#EEBA72',
+        lunchgo_light: '#EEBA7233',
+        lunchgo_text: '#EEBA72B3',
+
+        lunchback: '#EE8F72',        
+        lunchback_light: '#EE8F7233',
+        lunchback_text: '#EE8F72B3',
+
+        exit: '#81E6E2', 
+        exit_light: '#81E6E233',
+        exit_text: '#81E6E2B3',
+
+        yesterday: '#DE7777', 
+        yesterday_light: '#DE777733',
+        yesterday_text: '#DE7777B3',
+      },
+      'am-brown': {
+        light: '#f1e1d8',
+        dark: '#501D0E',
+        DEFAULT: '#A23E00' 
       }
+      
     },
     spacing: {
       px: '1px',
       gutter: 'var(--padding-gutter)',
       '0': '0',
       '1': '0.25rem',
+      '1.5': '0.375rem',
       '2': '0.5rem',
       '3': '0.75rem',
       '4': '1rem',
       '5': '1.25rem',
       '6': '1.5rem',
+      '7': '1.75rem',
       '8': '2rem',
       '9': '2.25rem',
       '10': '2.5rem',
+      '11': '2.75rem',
       '12': '3rem',
+      '13': '3.25rem',
       '14': '3.5rem',
       '16': '4rem',
+      '18': '4.5rem',
       '20': '5rem',
+      '21': '5.25rem',
+      '22': '5.5rem',
       '24': '6rem',
+      '26': '6.5rem',
+      '27': '6.75rem',
+      '28': '7rem',
+      '30': '7.5rem',
       '32': '8rem',
+      '36': '9rem',
       '40': '10rem',
+      '41': '11.25rem',
+      '42': '11.5rem',
+      '44': '11rem',
       '48': '12rem',
+      '52': '13rem',
+      '54': '13.5rem',
       '56': '14rem',
+      '60': '15rem',
       '64': '16rem',
+      '68': '17rem',
+      '72': '18rem',
+      '76': '19rem',
+      '80': '20rem',
+      '84': '21rem',
+      '88': '22rem',
+      '96': '24rem',
+      '112': '28rem',
+      '120': '30rem',
+      '140': '35rem',
+      '150': '37.5rem',
+      '160': '40rem',
+      '220': '55rem',
+      '240': '60rem',
+      '300': '75rem',
+      '320': '80rem'
     },
     backgroundColor: theme => ({
       base: 'var(--background-base)',
@@ -137,15 +326,22 @@ module.exports = {
       sm: '0.125rem',
       DEFAULT: '0.25rem',
       lg: '0.5rem',
+      xl: '0.75rem',
+      '2xl': '1.0rem',
+      '3xl': '1.25rem',
       full: '9999px',
     },
     borderWidth: {
-      DEFAULT: '1px',
       '0': '0',
       '2': '2px',
       '3': '3px',
       '4': '4px',
       '8': '8px',
+      DEFAULT: '1px',
+    },
+    borderStyle:{
+      none: 'none',
+      solid : 'solid'
     },
     boxShadow: {
       DEFAULT: 'var(--elevation-z6)',
@@ -244,8 +440,9 @@ module.exports = {
       lg: '1.125rem',
       xl: '1.25rem',
       '2xl': '1.5rem',
-      '3xl': '1.875rem',
-      '4xl': '2.25rem',
+      '3xl': '1.75rem',
+      '4xl': '2rem',
+      '4-5xl': '2.5rem',
       '5xl': '3rem',
       '6xl': '4rem',
     },
@@ -265,6 +462,7 @@ module.exports = {
       ...theme('spacing'),
       full: '100%',
       screen: '100vh',
+      fit: 'fit-content',
     }),
     inset: {
       '0': '0',
@@ -317,31 +515,24 @@ module.exports = {
         gutter: 'var(--padding-gutter)'
       })
     }),
-    maxHeight: {
+    maxHeight: theme => ({
       full: '100%',
       screen: '100vh',
-    },
-    maxWidth: {
-      unset: 'unset',
-      xxxs: '16rem',
-      xxs: '18rem',
-      xs: '20rem',
-      sm: '24rem',
-      md: '28rem',
-      lg: '32rem',
-      xl: '36rem',
-      '2xl': '42rem',
-      '3xl': '48rem',
-      '4xl': '56rem',
-      '5xl': '64rem',
-      '6xl': '72rem',
+      ...theme('spacing')
+    }),
+    maxWidth: theme => ({
+      'screen-80': '80rem',
+      'screen-96': '96rem',
+      'screen-160': '160rem',
       full: '100%',
-    },
-    minHeight: {
+      ...theme('spacing')
+    }),
+    minHeight: theme => ({
       '0': '0',
       full: '100%',
       screen: '100vh',
-    },
+      ...theme('spacing')
+    }),
     minWidth: theme => ({
       '0': '0',
       full: '100%',
@@ -361,6 +552,7 @@ module.exports = {
     opacity: {
       '0': '0',
       '25': '0.25',
+      '40': '0.4',
       '50': '0.5',
       '75': '0.75',
       '100': '1',
@@ -437,6 +629,7 @@ module.exports = {
       '11/12': '91.666667%',
       full: '100%',
       screen: '100vw',
+      fit: 'fit-content',
     }),
     zIndex: {
       auto: 'auto',
@@ -455,7 +648,7 @@ module.exports = {
     alignSelf: ['responsive'],
     appearance: ['responsive'],
     backgroundAttachment: ['responsive'],
-    backgroundColor: ['responsive', 'hover', 'focus'],
+    backgroundColor: ['responsive', 'hover', 'focus','disabled'],
     backgroundPosition: ['responsive'],
     backgroundRepeat: ['responsive'],
     backgroundSize: ['responsive'],
@@ -465,7 +658,7 @@ module.exports = {
     borderStyle: ['responsive'],
     borderWidth: ['responsive', 'ltr', 'rtl'],
     boxShadow: ['responsive', 'hover', 'focus'],
-    cursor: ['responsive'],
+    cursor: ['responsive','disabled'],
     display: ['responsive'],
     fill: ['responsive'],
     flex: ['responsive'],
@@ -505,7 +698,7 @@ module.exports = {
     stroke: ['responsive'],
     tableLayout: ['responsive'],
     textAlign: ['responsive'],
-    textColor: ['responsive', 'hover', 'focus'],
+    textColor: ['responsive', 'hover', 'focus','disabled'],
     textDecoration: ['responsive', 'hover', 'focus'],
     textTransform: ['responsive'],
     userSelect: ['responsive'],

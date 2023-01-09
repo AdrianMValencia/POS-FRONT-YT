@@ -14,13 +14,16 @@ import {
   MatFormFieldDefaultOptions,
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from "@angular/material/form-field";
-import { MatPaginator, MatPaginatorIntl } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { MatTableDataSource } from "@angular/material/table";
+import { MatIconModule } from "@angular/material/icon";
+import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from "@angular/material/paginator";
+import { MatSort, MatSortModule } from "@angular/material/sort";
+import { MatTableDataSource, MatTableModule } from "@angular/material/table";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import { getEsPaginatorIntl } from "@shared/paginator-intl/es-paginator-intl";
 import { AlertService } from "@shared/services/alert.service";
 import { DefaultService } from "@shared/services/default.service";
-import { NgxSpinnerService } from "ngx-spinner";
+import { IconModule } from "@visurel/iconify-angular";
+import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { startWith, switchMap } from "rxjs/operators";
 import { fadeInUp400ms } from "src/@vex/animations/fade-in-up.animation";
 import { scaleFadeIn400ms } from "src/@vex/animations/scale-fade-in.animation";
@@ -32,7 +35,16 @@ import {
 @Component({
   selector: "app-list-table",
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    NgxSpinnerModule,
+    MatTableModule,
+    MatSortModule,
+    MatTooltipModule,
+    MatIconModule,
+    IconModule,
+    MatPaginatorModule
+  ],
   templateUrl: "./list-table.component.html",
   styleUrls: ["./list-table.component.scss"],
   animations: [scaleFadeIn400ms, fadeInUp400ms],
