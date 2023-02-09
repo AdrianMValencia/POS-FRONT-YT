@@ -42,7 +42,7 @@
                 </vex-list-table-menu>
 
                 <div class="card h-full overflow-hidden flex-auto">
-                    <vex-list-table
+                    <!-- <vex-list-table
                         (rowClick)="rowClick($event)"
                         [service]="_categoryService"
                         [columns]="component.tableColumns"
@@ -50,7 +50,16 @@
                         [sortDir]="component.initalSortDir"
                         [getInputs]="component.getInputs"
                         [buttonLabel]="component.buttonLabel"
-                    ></vex-list-table>
+                    ></vex-list-table> -->
+                    <app-list-table
+                        (rowClick)="rowClick($event)"
+                        [service]="_categoryService"
+                        [columns]="component.tableColumns"
+                        [sortBy]="component.initialSort"
+                        [sortDir]="component.initialSortDir"
+                        [getInputs]="component.getInputs"
+                        >
+                    </app-list-table>
                 </div>
             </mat-drawer-content>
         </mat-drawer-container>

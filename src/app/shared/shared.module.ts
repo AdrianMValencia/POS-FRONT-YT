@@ -8,7 +8,6 @@ import { ContainerModule } from 'src/@vex/directives/container/container.module'
 import { ScrollbarModule } from 'src/@vex/components/scrollbar/scrollbar.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';
-import { ListTableModule } from './components/list-table/list-table.module';
 import { ListTableMenuModule } from './components/list-table-menu/list-table-menu.module';
 import { ListTableSimpleModule } from './components/list-table-simple/list-table-simple.module';
 import { SearchBoxModule } from './components/search-box/search-box.module';
@@ -32,7 +31,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ScrollbarModule,
     FlexLayoutModule,
     PageLayoutModule,
-    ListTableModule,
     ListTableMenuModule,
     ListTableSimpleModule,
     SearchBoxModule,

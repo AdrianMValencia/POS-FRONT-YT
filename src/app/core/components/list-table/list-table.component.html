@@ -108,15 +108,22 @@
             <tr mat-row *matRowDef="let row; let i = index; columns : visibleColumns;" @fadeInUp class="h-16"></tr>
         </table>
         <div *ngIf="dataSource.filteredData.length === 0" class="flex h-full flex-col justify-center items-center">
-            <img @scaleFadeIn class="m-12 h-64" src="assets/img/ilustrations/idea.svg">
+            <img @scaleFadeIn class="m-12 h-64" src="../../../../assets/img/illustrations/idea.svg">
             <h2 class="headline m-0 text-center">No hay resultados en esta búsqueda</h2>
         </div>
     </div>
-    <mat-paginator
-        [class.hidden]="!dataSource.filteredData.length"
-        [pageSizeOptions]="paginatorOptions.pageSizeOptions"
-        [pageSize]="paginatorOptions.pageSize"
-        [length]="paginatorOptions.pageLength"
-        [showFirstLastButtons]="true"
-    ></mat-paginator>
+    <div class="h-24 flex gap-4 justify-between items-center flex-grap mx-10 my-2">
+        <div class="flex gap-3" *ngIf="dataSource.filteredData.length !== 0">
+            <ng-container>
+
+            </ng-container>
+        </div>
+        <mat-paginator
+            [class.hidden]="!dataSource.filteredData.length"
+            [pageSizeOptions]="paginatorOptions.pageSizeOptions"
+            [pageSize]="paginatorOptions.pageSize"
+            [length]="paginatorOptions.pageLength"
+            [showFirstLastButtons]="true"
+        ></mat-paginator>
+    </div>
 </div>

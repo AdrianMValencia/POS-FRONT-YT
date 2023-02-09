@@ -5,6 +5,7 @@ import { CategoryRoutingModule } from './category-routing.module';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { SharedModule } from '@shared/shared.module';
 import { CategoryManageComponent } from './category-manage/category-manage.component';
+import { ListTableComponent } from 'src/app/core/components/list-table/list-table.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { CategoryManageComponent } from './category-manage/category-manage.compo
   imports: [
     CommonModule,
     CategoryRoutingModule,
-    SharedModule
+    SharedModule,
+    ListTableComponent
   ]
 })
 export class CategoryModule { }
