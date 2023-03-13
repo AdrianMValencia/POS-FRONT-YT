@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DatesFilter } from '@shared/functions/actions';
+import { FiltersBox, SearchOptions } from '@shared/models/search-options.interface';
 import { CustomTitleService } from '@shared/services/custom-title.service';
 import { fadeInRight400ms } from 'src/@vex/animations/fade-in-right.animation';
 import { scaleIn400ms } from 'src/@vex/animations/scale-in.animation';
@@ -43,9 +44,9 @@ export class CategoryListComponent implements OnInit {
     this.formatGetInputs()
   }
 
-  search(data: any) {
+  search(data: FiltersBox) {
     this.component.filters.numFilter = data.searchValue
-    this.component.filters.textFilter = data.searchString
+    this.component.filters.textFilter = data.searchData
     this.formatGetInputs()
   }
 

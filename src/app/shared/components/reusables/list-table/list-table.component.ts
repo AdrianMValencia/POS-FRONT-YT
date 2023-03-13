@@ -8,17 +8,18 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild,
+  ViewChild
 } from "@angular/core";
 import {
   MatFormFieldDefaultOptions,
-  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS
 } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { TableColumns, TableFooter } from "@shared/models/list-table.interface";
 import { getEsPaginatorIntl } from "@shared/paginator-intl/es-paginator-intl";
 import { AlertService } from "@shared/services/alert.service";
 import { DefaultService } from "@shared/services/default.service";
@@ -27,10 +28,7 @@ import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { startWith, switchMap } from "rxjs/operators";
 import { fadeInUp400ms } from "src/@vex/animations/fade-in-up.animation";
 import { scaleFadeIn400ms } from "src/@vex/animations/scale-fade-in.animation";
-import {
-  TableColumns,
-  TableFooter,
-} from "../../Interfaces/list-table.interface";
+
 
 @Component({
   selector: "app-list-table",

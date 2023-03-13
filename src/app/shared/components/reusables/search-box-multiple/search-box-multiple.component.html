@@ -1,0 +1,72 @@
+<ng-container>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="flex items-center bg-white border border-am-main-blue-light rounded-lg overflow-hidden w-full mx-auto h-11">
+            <button
+                type="button"
+                *ngIf="searchOptions.length > 1"
+                [matMenuTriggerFor]="menu"
+                class="flex items-center p-2 text-am-main-blue bg-white">
+                <ic-icon
+                    [icIcon]="iconsService.getIcon(labelSelection.icon)"
+                    inline="true"
+                    class="mt-1"
+                    size="24px">
+                </ic-icon>
+                <ic-icon
+                    [icIcon]="iconsService.getIcon('icArrowDropDown')"
+                    inline="true"
+                    class="mt-1"
+                    size="24px">
+                </ic-icon>
+            </button>
+            <button
+                type="submit"
+                [disabled]="form.invalid"
+                class="bg-white rounded-sm text-am-purple-dark p-2">
+                <ic-icon
+                    [icIcon]="iconsService.getIcon('icSearch')"
+                    class="flex-none"
+                    size="24px">
+                </ic-icon>
+            </button>
+            <input 
+                class="desktop border-0 h-11 outline-none placeholder:text-secondary bg-card flex-auto" 
+                type="text"
+                matInput
+                formControlName="searchData"
+                matTooltip="{{ labelSelection.validation_desc }}"
+                placeholder="{{ labelSelection.placeholder }}">
+            <button
+                (click)="reset()"
+                *ngIf="form.valid"
+                @scaleInOut
+                class="mr-4"
+                type="button">
+                <ic-icon
+                    [icIcon]="iconsService.getIcon('icClose')"
+                    class="flex-none"
+                    size="16px">
+                </ic-icon>
+            </button>
+            <mat-menu
+                #menu
+                class="shadow-2xl">
+                <button
+                    mat-menu-item
+                    *ngFor="let option of searchOptions"
+                    (click)="changeSelection(option)">
+                    <ic-icon
+                        [icIcon]="iconsService.getIcon(option.icon)"
+                        inline="true"
+                        class="text-am-main-blue"
+                        size="24px">
+                    </ic-icon>
+                    <span
+                        [ngClass]="{'font-bold text-am-main-blue': option == labelSelection}">
+                        {{ option.label }}
+                    </span>
+                </button>
+            </mat-menu>
+        </div>
+    </form>
+</ng-container>
