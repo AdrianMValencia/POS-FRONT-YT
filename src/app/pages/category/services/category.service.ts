@@ -2,14 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertService } from '@shared/services/alert.service';
 import { Observable } from 'rxjs';
-import { Category, CategoryApi } from '../responses/category/category.response';
+import { Category, CategoryApi } from '../models/category-response.interface';
 import { environment as env } from 'src/environments/environment';
 import { endpoint } from '@shared/apis/endpoint';
-import { ListCategoryRequest } from '../requests/category/list-category.request';
 import { map } from 'rxjs/operators';
-import { CategoryRequest } from '../requests/category/category.request';
-import { ApiResponse } from '../commons/response.interface';
+import { CategoryRequest } from '../models/category-request.interface';
+import { ApiResponse } from '../../../commons/response.interface';
 import { getIcon } from '@shared/functions/helpers';
+import { ListCategoryRequest } from '../models/list-category-request.interface';
 
 @Injectable({
   providedIn: 'root'

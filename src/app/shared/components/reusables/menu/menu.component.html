@@ -1,0 +1,25 @@
+<div class="h-14 mb-6 flex bg-primary items-center">
+    <button
+        *ngIf="buttonShow"
+        (click)="emitClick()"
+        class="flex-auto bg-accent text-accent-contrast"
+        mat-button>
+        <span class="mr-1">{{ buttonLabel }}</span>
+    </button>
+</div>
+
+<ng-container *ngFor="let item of items">
+    <a *ngIf="item.type === 'link'" (click)="setFilter(item)"
+        class="list-item mt-2 flex items-center h-10"
+        [class.bg-hover]="isActive(item.id)"
+        [class.text-primary-500]="isActive(item.id)"
+        matRipple>
+        <ic-icon
+            [icon]="item.icon"
+            class="ltr:mr-3 rtl:mr-3"
+            [ngClass]="item.class?.icon"
+            [size]="item.size ? item.size : '24px'">
+        </ic-icon>
+        <span>{{ item.label }}</span>
+    </a>
+</ng-container>

@@ -6,8 +6,8 @@ import { CustomTitleService } from '@shared/services/custom-title.service';
 import { fadeInRight400ms } from 'src/@vex/animations/fade-in-right.animation';
 import { scaleIn400ms } from 'src/@vex/animations/scale-in.animation';
 import { stagger40ms } from 'src/@vex/animations/stagger.animation';
-import { CategoryApi } from 'src/app/responses/category/category.response';
-import { CategoryService } from 'src/app/services/category.service';
+import { CategoryApi } from 'src/app/pages/category/models/category-response.interface';
+import { CategoryService } from 'src/app/pages/category/services/category.service';
 import Swal from 'sweetalert2';
 import { CategoryManageComponent } from '../category-manage/category-manage.component';
 import { componentSettings } from './category-list-config';
@@ -38,9 +38,8 @@ export class CategoryListComponent implements OnInit {
     this.component = componentSettings
   }
 
-  setData(data: any = null) {
-    this.component.filters.stateFilter = data.value
-    this.component.menuOpen = false
+  setData(value: number) {
+    this.component.filters.stateFilter = value
     this.formatGetInputs()
   }
 

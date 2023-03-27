@@ -1,5 +1,5 @@
 import { TableColumn } from "src/@vex/interfaces/table-column.interface";
-import { Category } from "src/app/responses/category/category.response";
+import { Category } from "src/app/pages/category/models/category-response.interface";
 import icCategory from "@iconify/icons-ic/twotone-category";
 import { ListTableMenu } from "src/app/commons/list-table-menu.interface";
 import icViewHeadline from "@iconify/icons-ic/twotone-view-headline";
@@ -8,6 +8,7 @@ import icCalendarMonth from "@iconify/icons-ic/twotone-calendar-today";
 import { GenericValidators } from "@shared/validators/generic-validators";
 import { TableColumns } from "@shared/models/list-table.interface";
 import { SearchOptions } from "@shared/models/search-options.interface";
+import { MenuItems } from "@shared/models/menu-items.interface";
 
 const searchOptions: SearchOptions[] = [
   {
@@ -28,7 +29,7 @@ const searchOptions: SearchOptions[] = [
   },
 ];
 
-const menuItems: ListTableMenu[] = [
+const menuItems: MenuItems[] = [
   {
     type: "link",
     id: "all",
@@ -41,7 +42,7 @@ const menuItems: ListTableMenu[] = [
     value: 1,
     icon: icLabel,
     label: "Activo",
-    classes: {
+    class: {
       icon: "text-green",
     },
   },
@@ -51,7 +52,7 @@ const menuItems: ListTableMenu[] = [
     value: 0,
     icon: icLabel,
     label: "Inactivo",
-    classes: {
+    class: {
       icon: "text-gray",
     },
   },

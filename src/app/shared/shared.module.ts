@@ -8,9 +8,7 @@ import { ContainerModule } from 'src/@vex/directives/container/container.module'
 import { ScrollbarModule } from 'src/@vex/components/scrollbar/scrollbar.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { PageLayoutModule } from 'src/@vex/components/page-layout/page-layout.module';
-import { ListTableMenuModule } from './components/list-table-menu/list-table-menu.module';
 import { ListTableSimpleModule } from './components/list-table-simple/list-table-simple.module';
-import { SearchBoxModule } from './components/search-box/search-box.module';
 import { SearchFilterModule } from './components/search-filter/search-filter.module';
 import { DownloadCsvModule } from './components/download-csv/download-csv.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -31,9 +29,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ScrollbarModule,
     FlexLayoutModule,
     PageLayoutModule,
-    ListTableMenuModule,
     ListTableSimpleModule,
-    SearchBoxModule,
     SearchFilterModule,
     DownloadCsvModule,
     NgxSpinnerModule,

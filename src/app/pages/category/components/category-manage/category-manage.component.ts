@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import icClose from '@iconify/icons-ic/twotone-close';
 import { AlertService } from '@shared/services/alert.service';
-import { CategoryService } from 'src/app/services/category.service';
-import * as configs from '../../../../static-data/configs';
+import { CategoryService } from 'src/app/pages/category/services/category.service';
+import * as configs from '../../../../../static-data/configs';
 
 @Component({
   selector: 'vex-category-manage',
