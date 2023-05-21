@@ -33,6 +33,7 @@
     "@ngneat/until-destroy": "~8.0.4",
     "@ngx-loading-bar/core": "^5.1.2",
     "@ngx-loading-bar/router": "^5.1.2",
+    "@types/google-one-tap": "^1.2.2",
     "@visurel/iconify-angular": "~11.0.0",
     "angular-calendar": "~0.29.0-beta.10",
     "apexcharts": "~3.25.0",

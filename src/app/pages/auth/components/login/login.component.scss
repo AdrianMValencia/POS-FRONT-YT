@@ -1,0 +1,91 @@
+//bgjar.com/wave
+@keyframes gradient {
+  100% {
+    background-size: 4000px 1000px;
+  }
+}
+
+.login-fondo {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0 24px;
+  background-image: url("../../../../../assets/img/demo/Wave.svg");
+  background-size: 2000px 1000px;
+  background-position: -500px 0;
+  color: #f9f9f9;
+  font-family: "Euclid Circular A";
+  animation: gradient 10s infinite alternate linear;
+}
+
+@media (width >= 500px) {
+  body {
+    padding: 0;
+  }
+}
+
+.login {
+  position: fixed;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: 90%;
+  padding: 70px 30px 44px;
+  border-radius: 15px;
+  background: white;
+  text-align: center;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1);
+}
+
+@media (width >= 450px) {
+  .login {
+    width: 380px;
+  }
+}
+
+.avatar {
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: linear-gradient(-45deg, #157ae1, #c7a1ff);
+  padding: 2px;
+  width: 120px;
+  height: 120px;
+}
+
+.avatar > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+
+  border: 4px solid white;
+}
+
+.login > h2 {
+  color: #222222;
+  font-size: 36px;
+  font-weight: 500;
+  margin: 0 0 4px;
+}
+
+.login > h3 {
+  color: #545454;
+  margin: 0 0 30px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.login-form {
+  display: grid;
+  gap: 16px;
+  place-items: center;
+  width: 100%;
+  margin: 0;
+}
+
+.textbox {
+  width: 100%;
+  position: relative;
+  color: #222222;
+}
