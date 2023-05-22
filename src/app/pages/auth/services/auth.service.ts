@@ -5,29 +5,29 @@ import { Observable, BehaviorSubject } from "rxjs";
 import { environment as env } from "src/environments/environment";
 import { endpoint, httpOptions } from "@shared/apis/endpoint";
 import { map } from "rxjs/operators";
-import { ApiResponse } from "src/app/commons/response.interface";
+import { BaseResponse } from "@shared/models/base-api-response.interface";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  private user: BehaviorSubject<ApiResponse>;
+  private user: BehaviorSubject<BaseResponse>;
 
-  public get userToken(): ApiResponse {
+  public get userToken(): BaseResponse {
     return this.user.value;
   }
 
   constructor(private http: HttpClient) {
-    this.user = new BehaviorSubject<ApiResponse>(
+    this.user = new BehaviorSubject<BaseResponse>(
       JSON.parse(localStorage.getItem("token"))
     );
   }
 
-  login(req: Login, authType: string): Observable<ApiResponse> {
+  login(req: Login, authType: string): Observable<BaseResponse> {
     localStorage.setItem("authType", "Interno");
     const requestUrl = `${env.api}${endpoint.LOGIN}?authType=${authType}`;
-    return this.http.post<ApiResponse>(requestUrl, req, httpOptions).pipe(
-      map((resp: ApiResponse) => {
+    return this.http.post<BaseResponse>(requestUrl, req, httpOptions).pipe(
+      map((resp: BaseResponse) => {
         if (resp.isSuccess) {
           localStorage.setItem("token", JSON.stringify(resp.data));
           this.user.next(resp.data);
@@ -41,13 +41,13 @@ export class AuthService {
   loginWithGoogle(
     credential: string,
     authType: string
-  ): Observable<ApiResponse> {
+  ): Observable<BaseResponse> {
     localStorage.setItem("authType", "Externo");
     const requestUrl = `${env.api}${endpoint.LOGIN_GOOGLE}?authType=${authType}`;
     return this.http
-      .post<ApiResponse>(requestUrl, JSON.stringify(credential), httpOptions)
+      .post<BaseResponse>(requestUrl, JSON.stringify(credential), httpOptions)
       .pipe(
-        map((resp: ApiResponse) => {
+        map((resp: BaseResponse) => {
           if (resp.isSuccess) {
             localStorage.setItem("token", JSON.stringify(resp.data));
             this.user.next(resp.data);

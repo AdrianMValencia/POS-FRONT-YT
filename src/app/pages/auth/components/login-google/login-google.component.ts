@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { CredentialResponse, PromptMomentNotification } from "google-one-tap";
 import { AuthService } from "../../services/auth.service";
 import { environment } from "src/environments/environment";
-import { ApiResponse } from "src/app/commons/response.interface";
+import { BaseResponse } from "@shared/models/base-api-response.interface";
 
 declare var window: any;
 declare var google: any;
@@ -47,7 +47,7 @@ export class LoginGoogleComponent implements OnInit {
     await this.authService
       .loginWithGoogle(response.credential, "Externo")
       .subscribe(
-        (resp: ApiResponse) => {
+        (resp: BaseResponse) => {
           if (resp.isSuccess) {
             this.ngZone.run(() => {
               this.router.navigate(["/"]);

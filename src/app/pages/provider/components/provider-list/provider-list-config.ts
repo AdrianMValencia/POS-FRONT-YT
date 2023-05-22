@@ -1,13 +1,9 @@
-import { TableColumn } from "src/@vex/interfaces/table-column.interface";
-import { Category } from "src/app/pages/category/models/category-response.interface";
-import icCategory from "@iconify/icons-ic/twotone-category";
-import { ListTableMenu } from "src/app/commons/list-table-menu.interface";
-import icCalendarMonth from "@iconify/icons-ic/twotone-calendar-today";
-import { GenericValidators } from "@shared/validators/generic-validators";
 import { TableColumns } from "@shared/models/list-table.interface";
-import { SearchOptions } from "@shared/models/search-options.interface";
 import { MenuItems } from "@shared/models/menu-items.interface";
+import { SearchOptions } from "@shared/models/search-options.interface";
 import { IconsService } from "@shared/services/icons.service";
+import { GenericValidators } from "@shared/validators/generic-validators";
+import { ProviderResponse } from "../../models/provider-response.interface";
 
 const searchOptions: SearchOptions[] = [
   {
@@ -19,11 +15,19 @@ const searchOptions: SearchOptions[] = [
     icon: "icName",
   },
   {
-    label: "Descripción",
+    label: "Email",
     value: 2,
-    placeholder: "Buscar por Descripción",
-    validation: [GenericValidators.defaultDescription],
-    validation_desc: "Sólo se permite letras y números en esta búsqueda.",
+    placeholder: "Buscar por Email",
+    validation: [GenericValidators.emailValidation],
+    validation_desc: "Sólo se permite correos válidos.",
+    icon: "icMail",
+  },
+  {
+    label: "N° Documento",
+    value: 3,
+    placeholder: "Buscar por N° Documento",
+    validation: [GenericValidators.dni],
+    validation_desc: "Sólo se permite documentos válidos.",
     icon: "icDescription",
   },
 ];
@@ -57,7 +61,7 @@ const menuItems: MenuItems[] = [
   },
 ];
 
-const tableColumns: TableColumns<Category>[] = [
+const tableColumns: TableColumns<ProviderResponse>[] = [
   {
     label: "NOMBRE",
     cssLabel: ["font-bold", "text-sm"],
@@ -71,14 +75,62 @@ const tableColumns: TableColumns<Category>[] = [
     download: true,
   },
   {
-    label: "DESCRIPCIÓN",
+    label: "EMAIL",
     cssLabel: ["font-bold", "text-sm"],
-    property: "description",
+    property: "email",
     cssProperty: ["font-semibold", "text-sm", "text-left"],
     type: "text",
     sticky: false,
     sort: true,
-    sortProperty: "description",
+    sortProperty: "email",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "TIPO DOCUMENTO",
+    cssLabel: ["font-bold", "text-sm"],
+    property: "documentType",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
+    type: "text",
+    sticky: false,
+    sort: true,
+    sortProperty: "documentType",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "N° DOCUMENTO",
+    cssLabel: ["font-bold", "text-sm"],
+    property: "documentNumber",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
+    type: "text",
+    sticky: false,
+    sort: true,
+    sortProperty: "documentNumber",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "DIRECCIÓN",
+    cssLabel: ["font-bold", "text-sm"],
+    property: "address",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
+    type: "text",
+    sticky: false,
+    sort: true,
+    sortProperty: "address",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "TELÉFONO",
+    cssLabel: ["font-bold", "text-sm"],
+    property: "phone",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
+    type: "text",
+    sticky: false,
+    sort: true,
+    sortProperty: "phone",
     visible: true,
     download: true,
   },
@@ -96,7 +148,7 @@ const tableColumns: TableColumns<Category>[] = [
   {
     label: "ESTADO",
     cssLabel: ["font-bold", "text-sm"],
-    property: "stateCategory",
+    property: "stateProvider",
     cssProperty: ["font-semibold", "text-sm", "text-left"],
     type: "badge",
     sticky: false,
@@ -134,37 +186,27 @@ const filters = {
   numFilter: 0,
   textFilter: "",
   stateFilter: null,
-  startDate: null,
-  endDate: null,
+  startDate: "",
+  endDate: "",
 };
 
-const inputs = {
+const getInputs = {
   numFilter: 0,
   textFilter: "",
   stateFilter: null,
-  startDate: null,
-  endDate: null,
+  startDate: "",
+  endDate: "",
 };
 
 export const componentSettings = {
-  // ICONS
-  icCategory: icCategory,
-  icCalendarMonth: icCalendarMonth,
-  // LAYOUT SETTINGS
-  menuOpen: false,
-  // TABLE SETTINGS
-  tableColumns: tableColumns,
+  icProvider: IconsService.prototype.getIcon("icProvider"),
+  searchOptions,
+  menuItems,
+  tableColumns,
   initialSort: "Id",
   initialSortDir: "desc",
-  getInputs: inputs,
-  buttonLabel: "EDITAR",
-  buttonLabel2: "ELIMINAR",
-  // SEARCH FILTROS
-  menuItems: menuItems,
-  searchOptions: searchOptions,
-  filters_dates_active: false,
-  filters: filters,
-  datesFilterArray: ["Fecha de creación"],
+  filters,
+  getInputs,
   columnsFilter: tableColumns.map((column) => {
     return {
       label: column.label,
