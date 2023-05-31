@@ -15,6 +15,9 @@ export const endpoint = {
 
   // PROVIDER MODULE
   LIST_PROVIDERS: "Provider",
+
+  // DOCUMENT TYPE MODULE
+  LIST_DOCUMENT_TYPES: "DocumentType",
 };
 
 export const httpOptions = {
