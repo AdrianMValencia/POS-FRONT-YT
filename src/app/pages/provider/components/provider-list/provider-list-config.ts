@@ -188,6 +188,7 @@ const filters = {
   stateFilter: null,
   startDate: "",
   endDate: "",
+  refresh: false,
 };
 
 const getInputs = {
@@ -196,6 +197,7 @@ const getInputs = {
   stateFilter: null,
   startDate: "",
   endDate: "",
+  refresh: false,
 };
 
 export const componentSettings = {

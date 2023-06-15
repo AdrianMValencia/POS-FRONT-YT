@@ -15,6 +15,7 @@ export const endpoint = {
 
   // PROVIDER MODULE
   LIST_PROVIDERS: "Provider",
+  PROVIDER_REGISTER: "Provider/Register/",
 
   // DOCUMENT TYPE MODULE
   LIST_DOCUMENT_TYPES: "DocumentType",

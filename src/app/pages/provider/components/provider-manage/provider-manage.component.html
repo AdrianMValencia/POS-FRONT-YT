@@ -1,0 +1,90 @@
+<form (ngSubmit)="providerSave()" [formGroup]="form">
+  <div mat-dialog-title class="flex justify-between">
+    <h2 class="headline m-0 text-xl text-accent">
+      <strong>Gestión de Proveedor</strong>
+    </h2>
+    <button class="text-secondary" mat-dialog-close mat-icon-button>
+      <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="form.get('name').hasError('required')">
+        Campo Nombre es requerido.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="form.get('email').hasError('required')">
+        Campo Email es requerido.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Tipo de Documento</mat-label>
+      <mat-select
+        formControlName="documentTypeId"
+        (selectionChange)="listDocumentTypes()"
+      >
+        <mat-option
+          *ngFor="let item of documentTypes"
+          [value]="item.documentTypeId"
+        >
+          {{ item.abbreviation }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('documentTypeId').hasError('required')">
+        Campo Tipo de Documento es requerido.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>N° Documento</mat-label>
+      <input matInput formControlName="documentNumber" />
+      <mat-error *ngIf="form.get('documentNumber').hasError('required')">
+        Campo N° Documento es requerido.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="phone" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="address" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="state">
+        <mat-option
+          *ngFor="let state of configs.statesSelect"
+          [value]="state.value"
+        >
+          {{ state.label }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('state').hasError('required')">
+        Campo Estado es requerido.
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>CANCELAR</button>
+    <button
+      color="purple"
+      class="bg-accent text-accent-contrast"
+      mat-button
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      GUARDAR
+    </button>
+  </mat-dialog-actions>
+</form>

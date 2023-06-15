@@ -7,10 +7,12 @@ import { SearchBoxMultipleComponent } from "@shared/components/reusables/search-
 import { SharedModule } from "@shared/shared.module";
 import { ProviderRoutingModule } from "./provider-routing.module";
 import { ProviderListComponent } from './components/provider-list/provider-list.component';
+import { ProviderManageComponent } from './components/provider-manage/provider-manage.component';
 
 @NgModule({
   declarations: [
-    ProviderListComponent
+    ProviderListComponent,
+    ProviderManageComponent
   ],
   imports: [
     CommonModule,
