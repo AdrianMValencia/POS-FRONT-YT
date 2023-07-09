@@ -13,3 +13,14 @@ export interface ProviderResponse {
   icEdit: any;
   icDelete: any;
 }
+
+export interface ProviderById {
+  providerId: number;
+  name: string;
+  email: string;
+  documentTypeId: string;
+  documentNumber: string;
+  address: string;
+  phone: string;
+  state: number;
+}

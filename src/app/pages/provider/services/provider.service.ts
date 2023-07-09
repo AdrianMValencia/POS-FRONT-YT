@@ -8,7 +8,10 @@ import {
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment as env } from "src/environments/environment";
-import { ProviderResponse } from "../models/provider-response.interface";
+import {
+  ProviderById,
+  ProviderResponse,
+} from "../models/provider-response.interface";
 import { getIcon } from "@shared/functions/helpers";
 import { ProviderRequest } from "../models/provider-request.interface";
 
@@ -56,6 +59,15 @@ export class ProviderService {
     );
   }
 
+  providerById(providerId: number): Observable<ProviderById> {
+    const requestUrl = `${env.api}${endpoint.PROVIDER_BY_ID}${providerId}`;
+    return this._http.get(requestUrl).pipe(
+      map((resp: BaseResponse) => {
+        return resp.data;
+      })
+    );
+  }
+
   providerRegister(provider: ProviderRequest): Observable<BaseResponse> {
     const requestUrl = `${env.api}${endpoint.PROVIDER_REGISTER}`;
     return this._http.post(requestUrl, provider).pipe(
@@ -63,5 +75,13 @@ export class ProviderService {
         return resp;
       })
     );
+  }
+
+  providerEdit(
+    providerId: number,
+    provider: ProviderRequest
+  ): Observable<BaseResponse> {
+    const requestUrl = `${env.api}${endpoint.PROVIDER_EDIT}${providerId}`;
+    return this._http.put<BaseResponse>(requestUrl, provider);
   }
 }

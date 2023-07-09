@@ -37,6 +37,7 @@
 
         <div class="card h-full overflow-hidden flex-auto">
           <app-list-table
+            (rowClick)="rowClick($event)"
             [service]="_providerService"
             [columns]="component.tableColumns"
             [sortBy]="component.initialSort"

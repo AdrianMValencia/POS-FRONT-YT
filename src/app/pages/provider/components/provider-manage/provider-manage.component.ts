@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { IconsService } from "@shared/services/icons.service";
 import * as configs from "../../../../../static-data/configs";
 import { DocumentType } from "@shared/models/document-type.interface";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AlertService } from "@shared/services/alert.service";
 import { ProviderService } from "../../services/provider.service";
-import { MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { DocumentTypeService } from "@shared/services/document-type.service";
 
 @Component({
@@ -34,6 +34,7 @@ export class ProviderManageComponent implements OnInit {
   }
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data,
     private _fb: FormBuilder,
     private _alert: AlertService,
     private _providerService: ProviderService,
@@ -45,11 +46,29 @@ export class ProviderManageComponent implements OnInit {
 
   ngOnInit(): void {
     this.listDocumentTypes();
+    if (this.data != null) {
+      this.providerById(this.data.data.providerId);
+    }
   }
 
   listDocumentTypes(): void {
     this._documentTypeService.listDocumentTypes().subscribe((resp) => {
       this.documentTypes = resp;
+    });
+  }
+
+  providerById(providerId: number): void {
+    this._providerService.providerById(providerId).subscribe((resp) => {
+      this.form.reset({
+        providerId: resp.providerId,
+        name: resp.name,
+        email: resp.email,
+        documentTypeId: resp.documentTypeId,
+        documentNumber: resp.documentNumber,
+        address: resp.address,
+        phone: resp.phone,
+        state: resp.state,
+      });
     });
   }
 
@@ -82,5 +101,14 @@ export class ProviderManageComponent implements OnInit {
       });
   }
 
-  providerEdit(providerId: number): void {}
+  providerEdit(providerId: number): void {
+    this._providerService
+      .providerEdit(providerId, this.form.value)
+      .subscribe((resp) => {
+        if (resp.isSuccess) {
+          this._alert.success("Excelente", resp.message);
+          this._dialogRef.close(true);
+        }
+      });
+  }
 }
