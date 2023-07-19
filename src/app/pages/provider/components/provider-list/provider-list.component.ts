@@ -10,6 +10,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { ProviderManageComponent } from "../provider-manage/provider-manage.component";
 import { ProviderResponse } from "../../models/provider-response.interface";
 import { RowClick } from "@shared/models/row-click.interface";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "vex-provider-list",
@@ -111,7 +112,26 @@ export class ProviderListComponent implements OnInit {
       });
   }
 
-  providerRemove(provider: ProviderResponse) {}
+  providerRemove(providerData: ProviderResponse) {
+    Swal.fire({
+      title: `¿Realmente deseas eliminar el proveedor ${providerData.name}?`,
+      text: "Se borrará de forma permanente!",
+      icon: "warning",
+      showCancelButton: true,
+      focusCancel: true,
+      confirmButtonColor: "rgb(210, 155, 253)",
+      cancelButtonColor: "rgb(79, 109, 253)",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      width: 430,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._providerService
+          .providerRemove(providerData.providerId)
+          .subscribe(() => this.setGetInputsProviders(true));
+      }
+    });
+  }
 
   setGetInputsProviders(refresh: boolean) {
     this.component.filters.refresh = refresh;

@@ -14,12 +14,13 @@ import {
 } from "../models/provider-response.interface";
 import { getIcon } from "@shared/functions/helpers";
 import { ProviderRequest } from "../models/provider-request.interface";
+import { AlertService } from "@shared/services/alert.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class ProviderService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private _alert: AlertService) {}
 
   GetAll(
     size: string,
@@ -46,13 +47,8 @@ export class ProviderService {
               prov.badgeColor = "text-gray bg-gray-light";
               break;
           }
-          prov.icEdit = getIcon("icEdit", "Editar Proveedor", true, "edit");
-          prov.icDelete = getIcon(
-            "icDelete",
-            "Eliminar Proveedor",
-            true,
-            "remove"
-          );
+          prov.icEdit = getIcon("icEdit", "Editar Proveedor", true);
+          prov.icDelete = getIcon("icDelete", "Eliminar Proveedor", true);
         });
         return resp;
       })
@@ -83,5 +79,16 @@ export class ProviderService {
   ): Observable<BaseResponse> {
     const requestUrl = `${env.api}${endpoint.PROVIDER_EDIT}${providerId}`;
     return this._http.put<BaseResponse>(requestUrl, provider);
+  }
+
+  providerRemove(providerId: number): Observable<void> {
+    const requestUrl = `${env.api}${endpoint.PROVIDER_REMOVE}${providerId}`;
+    return this._http.put(requestUrl, "").pipe(
+      map((resp: BaseResponse) => {
+        if (resp.isSuccess) {
+          this._alert.success("Excelente", resp.message);
+        }
+      })
+    );
   }
 }

@@ -48,13 +48,8 @@ export class CategoryService {
               e.badgeColor = "text-gray bg-gray-light";
               break;
           }
-          e.icEdit = getIcon("icEdit", "Editar Categoría", true, "edit");
-          e.icDelete = getIcon(
-            "icDelete",
-            "Eliminar Categoría",
-            true,
-            "remove"
-          );
+          e.icEdit = getIcon("icEdit", "Editar Categoría", true);
+          e.icDelete = getIcon("icDelete", "Eliminar Categoría", true);
         });
         return data;
       })
