@@ -52,32 +52,31 @@ export class CategoryListComponent implements OnInit {
   }
 
   formatGetInputs() {
-    let inputs = {
-      numFilter: 0,
-      textFilter: "",
-      stateFilter: null,
-      startDate: null,
-      endDate: null,
-    };
+    let str = "";
 
-    if (this.component.filters.numFilter != "") {
-      inputs.numFilter = this.component.filters.numFilter;
-      inputs.textFilter = this.component.filters.textFilter;
+    if (this.component.filters.textFilter != null) {
+      str += `&numFilter=${this.component.filters.numFilter}&textFilter=${this.component.filters.textFilter}`;
     }
 
     if (this.component.filters.stateFilter != null) {
-      inputs.stateFilter = this.component.filters.stateFilter;
+      str += `&stateFilter=${this.component.filters.stateFilter}`;
     }
 
     if (
       this.component.filters.startDate != "" &&
       this.component.filters.endDate != ""
     ) {
-      inputs.startDate = this.component.filters.startDate;
-      inputs.endDate = this.component.filters.endDate;
+      str += `&startDate=${this.component.filters.startDate}`;
+      str += `&endDate=${this.component.filters.endDate}`;
     }
 
-    this.component.getInputs = inputs;
+    if (this.component.filters.refresh) {
+      let random = Math.random();
+      str += `&refresh=${random}`;
+      this.component.filters.refresh = false;
+    }
+
+    this.component.getInputs = str;
   }
 
   openDialogRegister() {
@@ -89,7 +88,7 @@ export class CategoryListComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res) {
-          this.formatGetInputs();
+          this.setGetInputsProviders(true);
         }
       });
   }
@@ -120,7 +119,7 @@ export class CategoryListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
-        this.formatGetInputs();
+        this.setGetInputsProviders(true);
       }
     });
   }
@@ -141,8 +140,17 @@ export class CategoryListComponent implements OnInit {
       if (result.isConfirmed) {
         this._categoryService
           .CategoryRemove(category.categoryId)
-          .subscribe(() => this.formatGetInputs());
+          .subscribe(() => this.setGetInputsProviders(true));
       }
     });
+  }
+
+  setGetInputsProviders(refresh: boolean) {
+    this.component.filters.refresh = refresh;
+    this.formatGetInputs();
+  }
+
+  get getDownloadUrl() {
+    return `Category?Download=True`;
   }
 }

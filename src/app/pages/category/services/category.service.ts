@@ -21,20 +21,11 @@ export class CategoryService {
   constructor(private _http: HttpClient, private _alert: AlertService) {}
 
   GetAll(size, sort, order, page, getInputs): Observable<BaseApiResponse> {
-    const requestUrl = `${env.api}${endpoint.LIST_CATEGORIES}`;
-    const params: ListCategoryRequest = new ListCategoryRequest(
-      page + 1,
-      order,
-      sort,
-      size,
-      getInputs.numFilter,
-      getInputs.textFilter,
-      getInputs.stateFilter,
-      getInputs.startDate,
-      getInputs.endDate
-    );
+    const requestUrl = `${env.api}${
+      endpoint.LIST_CATEGORIES
+    }?records=${size}&sort=${sort}&order=${order}&page=${page + 1}${getInputs}`;
 
-    return this._http.post<BaseApiResponse>(requestUrl, params).pipe(
+    return this._http.get<BaseApiResponse>(requestUrl).pipe(
       map((data: BaseApiResponse) => {
         data.data.items.forEach(function (e: any) {
           switch (e.state) {

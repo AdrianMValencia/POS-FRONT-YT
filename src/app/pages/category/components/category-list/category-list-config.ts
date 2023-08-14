@@ -134,16 +134,16 @@ const filters = {
   numFilter: 0,
   textFilter: "",
   stateFilter: null,
-  startDate: null,
-  endDate: null,
+  startDate: "",
+  endDate: "",
 };
 
 const inputs = {
   numFilter: 0,
   textFilter: "",
   stateFilter: null,
-  startDate: null,
-  endDate: null,
+  startDate: "",
+  endDate: "",
 };
 
 export const componentSettings = {
@@ -165,11 +165,5 @@ export const componentSettings = {
   filters_dates_active: false,
   filters: filters,
   datesFilterArray: ["Fecha de creación"],
-  columnsFilter: tableColumns.map((column) => {
-    return {
-      label: column.label,
-      property: column.property,
-      type: column.type,
-    };
-  }),
+  filename: "listado-de-categorias",
 };

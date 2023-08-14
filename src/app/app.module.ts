@@ -1,22 +1,22 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { VexModule } from '../@vex/vex.module';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { CustomLayoutModule } from './custom-layout/custom-layout.module';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CustomLayoutAuthComponent } from './custom-layout-auth/custom-layout-auth.component';
-import { MatInputModule } from '@angular/material/input';
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { NgModule } from "@angular/core";
 import { MatFormFieldModule } from "@angular/material/form-field";
-import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
+import { MatInputModule } from "@angular/material/input";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AuthInterceptor } from "@shared/interceptors/auth.interceptor";
+import { NgxSpinnerModule } from "ngx-spinner";
+import { VexModule } from "../@vex/vex.module";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { CustomLayoutAuthComponent } from "./custom-layout-auth/custom-layout-auth.component";
+import { CustomLayoutModule } from "./custom-layout/custom-layout.module";
+import { NotFoundComponent } from "./pages/not-found/not-found.component";
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent, CustomLayoutAuthComponent],
-  imports: [   
+  imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -26,11 +26,11 @@ import { AuthInterceptor } from '@shared/interceptors/auth.interceptor';
     MatInputModule,
     MatFormFieldModule,
     VexModule,
-    CustomLayoutModule
+    CustomLayoutModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
