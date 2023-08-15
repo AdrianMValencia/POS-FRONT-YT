@@ -6,14 +6,12 @@ import { MenuComponent } from "@shared/components/reusables/menu/menu.component"
 import { SearchBoxMultipleComponent } from "@shared/components/reusables/search-box-multiple/search-box-multiple.component";
 import { SharedModule } from "@shared/shared.module";
 import { ProviderRoutingModule } from "./provider-routing.module";
-import { ProviderListComponent } from './components/provider-list/provider-list.component';
-import { ProviderManageComponent } from './components/provider-manage/provider-manage.component';
+import { ProviderListComponent } from "./components/provider-list/provider-list.component";
+import { ProviderManageComponent } from "./components/provider-manage/provider-manage.component";
+import { ExportExcelComponent } from "@shared/components/reusables/export-excel/export-excel.component";
 
 @NgModule({
-  declarations: [
-    ProviderListComponent,
-    ProviderManageComponent
-  ],
+  declarations: [ProviderListComponent, ProviderManageComponent],
   imports: [
     CommonModule,
     ProviderRoutingModule,
@@ -21,6 +19,7 @@ import { ProviderManageComponent } from './components/provider-manage/provider-m
     ListTableComponent,
     SearchBoxMultipleComponent,
     MenuComponent,
+    ExportExcelComponent,
   ],
 })
 export class ProviderModule {}

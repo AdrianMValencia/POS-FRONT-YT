@@ -137,4 +137,8 @@ export class ProviderListComponent implements OnInit {
     this.component.filters.refresh = refresh;
     this.formatGetInputs();
   }
+
+  get getDownloadUrl() {
+    return `Provider?Download=True`;
+  }
 }

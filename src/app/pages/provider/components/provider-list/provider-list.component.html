@@ -19,6 +19,14 @@
         >
         </app-search-box-multiple>
       </div>
+      <div>
+        <app-export-excel
+          [url]="getDownloadUrl"
+          [getInputs]="component.getInputs"
+          [filename]="component.filename"
+        >
+        </app-export-excel>
+      </div>
     </div>
   </div>
   <div class="-mt-14 pt-0 overflow-hidden flex">

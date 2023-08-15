@@ -136,15 +136,10 @@ const filters = {
   stateFilter: null,
   startDate: "",
   endDate: "",
+  refresh: false,
 };
 
-const inputs = {
-  numFilter: 0,
-  textFilter: "",
-  stateFilter: null,
-  startDate: "",
-  endDate: "",
-};
+const getInputs: string = "";
 
 export const componentSettings = {
   // ICONS
@@ -156,7 +151,7 @@ export const componentSettings = {
   tableColumns: tableColumns,
   initialSort: "Id",
   initialSortDir: "desc",
-  getInputs: inputs,
+  getInputs,
   buttonLabel: "EDITAR",
   buttonLabel2: "ELIMINAR",
   // SEARCH FILTROS

@@ -23,7 +23,9 @@ export class CategoryService {
   GetAll(size, sort, order, page, getInputs): Observable<BaseApiResponse> {
     const requestUrl = `${env.api}${
       endpoint.LIST_CATEGORIES
-    }?records=${size}&sort=${sort}&order=${order}&page=${page + 1}${getInputs}`;
+    }?records=${size}&sort=${sort}&order=${order}&numPage=${
+      page + 1
+    }${getInputs}`;
 
     return this._http.get<BaseApiResponse>(requestUrl).pipe(
       map((data: BaseApiResponse) => {
