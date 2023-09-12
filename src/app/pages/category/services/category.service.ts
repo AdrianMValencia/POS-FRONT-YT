@@ -1,18 +1,14 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { endpoint } from "@shared/apis/endpoint";
+import { getIcon } from "@shared/functions/helpers";
+import { BaseResponse } from "@shared/models/base-api-response.interface";
 import { AlertService } from "@shared/services/alert.service";
 import { Observable } from "rxjs";
-import { Category } from "../models/category-response.interface";
-import { environment as env } from "src/environments/environment";
-import { endpoint } from "@shared/apis/endpoint";
 import { map } from "rxjs/operators";
+import { environment as env } from "src/environments/environment";
 import { CategoryRequest } from "../models/category-request.interface";
-import { getIcon } from "@shared/functions/helpers";
-import { ListCategoryRequest } from "../models/list-category-request.interface";
-import {
-  BaseApiResponse,
-  BaseResponse,
-} from "@shared/models/base-api-response.interface";
+import { CategoryResponse } from "../models/category-response.interface";
 
 @Injectable({
   providedIn: "root",
@@ -20,16 +16,16 @@ import {
 export class CategoryService {
   constructor(private _http: HttpClient, private _alert: AlertService) {}
 
-  GetAll(size, sort, order, page, getInputs): Observable<BaseApiResponse> {
+  GetAll(size, sort, order, page, getInputs): Observable<BaseResponse> {
     const requestUrl = `${env.api}${
       endpoint.LIST_CATEGORIES
     }?records=${size}&sort=${sort}&order=${order}&numPage=${
       page + 1
     }${getInputs}`;
 
-    return this._http.get<BaseApiResponse>(requestUrl).pipe(
-      map((data: BaseApiResponse) => {
-        data.data.items.forEach(function (e: any) {
+    return this._http.get<BaseResponse>(requestUrl).pipe(
+      map((data: BaseResponse) => {
+        data.data.forEach(function (e: CategoryResponse) {
           switch (e.state) {
             case 0:
               e.badgeColor = "text-gray bg-gray-light";
@@ -58,7 +54,7 @@ export class CategoryService {
     );
   }
 
-  CategoryById(CategoryId: number): Observable<Category> {
+  CategoryById(CategoryId: number): Observable<CategoryResponse> {
     const requestUrl = `${env.api}${endpoint.CATEGORY_BY_ID}${CategoryId}`;
     return this._http.get(requestUrl).pipe(
       map((resp: BaseResponse) => {

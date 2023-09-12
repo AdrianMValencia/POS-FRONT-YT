@@ -8,14 +8,18 @@ import {
   OnInit,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from "@angular/core";
 import {
   MatFormFieldDefaultOptions,
-  MAT_FORM_FIELD_DEFAULT_OPTIONS
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
-import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from "@angular/material/paginator";
+import {
+  MatPaginator,
+  MatPaginatorIntl,
+  MatPaginatorModule,
+} from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
@@ -29,7 +33,6 @@ import { startWith, switchMap } from "rxjs/operators";
 import { fadeInUp400ms } from "src/@vex/animations/fade-in-up.animation";
 import { scaleFadeIn400ms } from "src/@vex/animations/scale-fade-in.animation";
 
-
 @Component({
   selector: "app-list-table",
   standalone: true,
@@ -41,7 +44,7 @@ import { scaleFadeIn400ms } from "src/@vex/animations/scale-fade-in.animation";
     MatTooltipModule,
     MatIconModule,
     IconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   templateUrl: "./list-table.component.html",
   styleUrls: ["./list-table.component.scss"],
@@ -139,9 +142,9 @@ export class ListTableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   setData(data: any) {
     if (data.isSuccess) {
       this.setVisibleColumns();
-      this.paginatorOptions.pageLength = data.data.totalRecords;
-      this.dataSource.data = data.data.items;
-      if (data.data.footer) this.setFooter(data.data.footer);
+      this.paginatorOptions.pageLength = data.totalRecords;
+      this.dataSource.data = data.data;
+      if (data.footer) this.setFooter(data.footer);
     } else {
       this._alert.warn("Atención", "Ha ocurrido un error al cargar los datos.");
     }

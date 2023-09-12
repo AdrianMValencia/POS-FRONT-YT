@@ -1,19 +1,16 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { DatesFilter } from "@shared/functions/actions";
-import {
-  FiltersBox,
-  SearchOptions,
-} from "@shared/models/search-options.interface";
+import { FiltersBox } from "@shared/models/search-options.interface";
 import { CustomTitleService } from "@shared/services/custom-title.service";
 import { fadeInRight400ms } from "src/@vex/animations/fade-in-right.animation";
 import { scaleIn400ms } from "src/@vex/animations/scale-in.animation";
 import { stagger40ms } from "src/@vex/animations/stagger.animation";
 import { CategoryService } from "src/app/pages/category/services/category.service";
 import Swal from "sweetalert2";
+import { CategoryResponse } from "../../models/category-response.interface";
 import { CategoryManageComponent } from "../category-manage/category-manage.component";
 import { componentSettings } from "./category-list-config";
-import { BaseApiResponse } from "@shared/models/base-api-response.interface";
 
 @Component({
   selector: "vex-category-list",
@@ -108,7 +105,7 @@ export class CategoryListComponent implements OnInit {
     return false;
   }
 
-  CategoryEdit(row: BaseApiResponse) {
+  CategoryEdit(row: CategoryResponse) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = row;
 

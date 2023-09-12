@@ -1,20 +1,17 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { endpoint } from "@shared/apis/endpoint";
-import {
-  BaseApiResponse,
-  BaseResponse,
-} from "@shared/models/base-api-response.interface";
+import { getIcon } from "@shared/functions/helpers";
+import { BaseResponse } from "@shared/models/base-api-response.interface";
+import { AlertService } from "@shared/services/alert.service";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment as env } from "src/environments/environment";
+import { ProviderRequest } from "../models/provider-request.interface";
 import {
   ProviderById,
   ProviderResponse,
 } from "../models/provider-response.interface";
-import { getIcon } from "@shared/functions/helpers";
-import { ProviderRequest } from "../models/provider-request.interface";
-import { AlertService } from "@shared/services/alert.service";
 
 @Injectable({
   providedIn: "root",
@@ -28,16 +25,16 @@ export class ProviderService {
     order: string,
     page: number,
     getInputs: string
-  ): Observable<BaseApiResponse> {
+  ): Observable<BaseResponse> {
     const requestUrl = `${env.api}${
       endpoint.LIST_PROVIDERS
     }?records=${size}&sort=${sort}&order=${order}&numPage=${
       page + 1
     }${getInputs}`;
 
-    return this._http.get<BaseApiResponse>(requestUrl).pipe(
-      map((resp) => {
-        resp.data.items.forEach(function (prov: ProviderResponse) {
+    return this._http.get<BaseResponse>(requestUrl).pipe(
+      map((resp: BaseResponse) => {
+        resp.data.forEach(function (prov: ProviderResponse) {
           switch (prov.state) {
             case 0:
               prov.badgeColor = "text-gray bg-gray-light";
