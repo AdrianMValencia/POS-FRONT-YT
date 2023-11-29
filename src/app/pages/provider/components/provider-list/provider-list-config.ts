@@ -191,6 +191,15 @@ const filters = {
   refresh: false,
 };
 
+const resetFilters = {
+  numFilter: 0,
+  textFilter: "",
+  stateFilter: null,
+  startDate: "",
+  endDate: "",
+  refresh: false,
+};
+
 const getInputs: string = "";
 
 export const componentSettings = {
@@ -201,6 +210,7 @@ export const componentSettings = {
   initialSort: "Id",
   initialSortDir: "desc",
   filters,
+  resetFilters,
   getInputs,
   filename: "listado-de-proveedores",
 };

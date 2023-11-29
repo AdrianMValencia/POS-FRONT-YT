@@ -1,11 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { ProviderListComponent } from "./components/provider-list/provider-list.component";
+import { WarehouseListComponent } from "./components/warehouse-list/warehouse-list.component";
 
 const routes: Routes = [
   {
     path: "",
-    component: ProviderListComponent,
+    component: WarehouseListComponent,
     data: {
       scrollDisabled: true,
       toolbarShadowEnabled: true,
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ProviderRoutingModule {}
+export class WarehouseRoutingModule {}

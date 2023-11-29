@@ -1,5 +1,5 @@
 <div class="w-full h-full flex flex-col">
-  <div class="px-gutter pt-6 pb-20 bg-primary flex-none">
+  <div class="px-gutter pt-1 pb-20 bg-primary flex-none">
     <div class="flex items-center justify-between" vexContainer>
       <h2
         class="headline text-primary-contrast m-0 flex items-center w-full max-w-xxxl mr-6"
@@ -11,26 +11,24 @@
         ></ic-icon>
         <span @fadeInRight class="ml-4 block">Gestión de Categorias</span>
       </h2>
-      <div class="flex items-center justify-end w-full">
-        <app-search-box-multiple
-          [searchOptions]="component.searchOptions"
-          (search)="search($event)"
-          [currentValue]="component.filters.textFilter"
-        >
-        </app-search-box-multiple>
-        <div>
-          <button
-            mat-icon-button
-            matTooltip="Filtro por rango de fechas"
-            type="button"
-            class="ml-8 text-primary-contrast"
-            [ngClass]="{
-              'extra-filters-active': component.filters_dates_active
-            }"
-            (click)="datesFilterOpen()"
+      <div class="flex items-center justify-end w-full mt-5">
+        <div class="flex justify-between">
+          <app-filter-date-range-ymd
+            (rangeDate)="searchDateRange($event)"
+            [start]="component.filters.startDate"
+            [end]="component.filters.endDate"
+          ></app-filter-date-range-ymd>
+          <app-button-reset-filters
+            (buttonClick)="resetFilters()"
+          ></app-button-reset-filters>
+        </div>
+        <div class="flex justify-between ml-6">
+          <app-search-box-multiple
+            [searchOptions]="component.searchOptions"
+            (search)="search($event)"
+            [currentValue]="component.filters.textFilter"
           >
-            <mat-icon [icIcon]="component.icCalendarMonth"></mat-icon>
-          </button>
+          </app-search-box-multiple>
         </div>
         <div>
           <app-export-excel

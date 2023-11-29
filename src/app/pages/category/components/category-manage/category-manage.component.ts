@@ -1,30 +1,29 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import icClose from '@iconify/icons-ic/twotone-close';
-import { AlertService } from '@shared/services/alert.service';
-import { CategoryService } from 'src/app/pages/category/services/category.service';
-import * as configs from '../../../../../static-data/configs';
+import { Component, Inject, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import icClose from "@iconify/icons-ic/twotone-close";
+import { AlertService } from "@shared/services/alert.service";
+import { CategoryService } from "src/app/pages/category/services/category.service";
+import * as configs from "../../../../../static-data/configs";
 
 @Component({
-  selector: 'vex-category-manage',
-  templateUrl: './category-manage.component.html',
-  styleUrls: ['./category-manage.component.scss']
+  selector: "vex-category-manage",
+  templateUrl: "./category-manage.component.html",
+  styleUrls: ["./category-manage.component.scss"],
 })
 export class CategoryManageComponent implements OnInit {
+  icClose = icClose;
+  configs = configs;
 
-  icClose = icClose
-  configs = configs
-
-  form: FormGroup
+  form: FormGroup;
 
   initForm(): void {
     this.form = this._fb.group({
       categoryId: [0, [Validators.required]],
-      name: ['', [Validators.required]],
-      description: [''],
-      state: ['', [Validators.required]]
-    })
+      name: ["", [Validators.required]],
+      description: [""],
+      state: ["", [Validators.required]],
+    });
   }
 
   constructor(
@@ -38,61 +37,61 @@ export class CategoryManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.data != null){
-      console.log(this.data)
-      this.CategoryById(this.data.data.categoryId)
+    if (this.data != null) {
+      this.CategoryById(this.data.data.categoryId);
     }
   }
 
   CategoryById(CategoryId: number): void {
-    this._categoryService.CategoryById(CategoryId).subscribe(
-      (resp) => {
-        this.form.reset({
-          categoryId: resp.categoryId,
-          name: resp.name,
-          description: resp.description,
-          state: resp.state
-        })
-      }
-    )
+    this._categoryService.CategoryById(CategoryId).subscribe((resp) => {
+      this.form.reset({
+        categoryId: resp.categoryId,
+        name: resp.name,
+        description: resp.description,
+        state: resp.state,
+      });
+    });
   }
 
   CategorySave(): void {
     if (this.form.invalid) {
       return Object.values(this.form.controls).forEach((controls) => {
         controls.markAllAsTouched();
-      })
+      });
     }
 
-    const categoryId = this.form.get('categoryId').value
+    const categoryId = this.form.get("categoryId").value;
 
     if (categoryId > 0) {
-      this.CategoryEdit(categoryId)
+      this.CategoryEdit(categoryId);
     } else {
-      this.CategoryRegister()
+      this.CategoryRegister();
     }
   }
 
   CategoryRegister(): void {
-    this._categoryService.CategoryRegister(this.form.value).subscribe((resp) => {
-      if (resp.isSuccess) {
-        this._alert.success('Excelente', resp.message)
-        this._dialogRef.close(true)
-      } else {
-        this._alert.warn('Atención', resp.message);
-      }
-    })
+    this._categoryService
+      .CategoryRegister(this.form.value)
+      .subscribe((resp) => {
+        if (resp.isSuccess) {
+          this._alert.success("Excelente", resp.message);
+          this._dialogRef.close(true);
+        } else {
+          this._alert.warn("Atención", resp.message);
+        }
+      });
   }
 
   CategoryEdit(categoryId: number): void {
-    this._categoryService.CategoryEdit(categoryId, this.form.value).subscribe((resp) => {
-      if(resp.isSuccess){
-        this._alert.success('Excelente', resp.message)
-        this._dialogRef.close(true)
-      }else{
-        this._alert.warn('Atención', resp.message);
-      }
-    })
+    this._categoryService
+      .CategoryEdit(categoryId, this.form.value)
+      .subscribe((resp) => {
+        if (resp.isSuccess) {
+          this._alert.success("Excelente", resp.message);
+          this._dialogRef.close(true);
+        } else {
+          this._alert.warn("Atención", resp.message);
+        }
+      });
   }
-
 }

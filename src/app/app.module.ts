@@ -13,6 +13,8 @@ import { AppComponent } from "./app.component";
 import { CustomLayoutAuthComponent } from "./custom-layout-auth/custom-layout-auth.component";
 import { CustomLayoutModule } from "./custom-layout/custom-layout.module";
 import { NotFoundComponent } from "./pages/not-found/not-found.component";
+import { DatePipe } from "@angular/common";
+import { MAT_DATE_LOCALE } from "@angular/material/core";
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent, CustomLayoutAuthComponent],
@@ -29,6 +31,8 @@ import { NotFoundComponent } from "./pages/not-found/not-found.component";
     CustomLayoutModule,
   ],
   providers: [
+    DatePipe,
+    { provide: MAT_DATE_LOCALE, useValue: "es-ES" },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

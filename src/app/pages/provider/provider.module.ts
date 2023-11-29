@@ -9,6 +9,8 @@ import { ProviderRoutingModule } from "./provider-routing.module";
 import { ProviderListComponent } from "./components/provider-list/provider-list.component";
 import { ProviderManageComponent } from "./components/provider-manage/provider-manage.component";
 import { ExportExcelComponent } from "@shared/components/reusables/export-excel/export-excel.component";
+import { FilterDateRangeYmdComponent } from "@shared/components/reusables/filter-date-range-ymd/filter-date-range-ymd.component";
+import { ButtonResetFiltersComponent } from "@shared/components/reusables/button-reset-filters/button-reset-filters.component";
 
 @NgModule({
   declarations: [ProviderListComponent, ProviderManageComponent],
@@ -20,6 +22,8 @@ import { ExportExcelComponent } from "@shared/components/reusables/export-excel/
     SearchBoxMultipleComponent,
     MenuComponent,
     ExportExcelComponent,
+    FilterDateRangeYmdComponent,
+    ButtonResetFiltersComponent,
   ],
 })
 export class ProviderModule {}

@@ -1,13 +1,9 @@
-import { TableColumn } from "src/@vex/interfaces/table-column.interface";
-import { CategoryResponse } from "src/app/pages/category/models/category-response.interface";
-import icCategory from "@iconify/icons-ic/twotone-category";
-import { ListTableMenu } from "src/app/commons/list-table-menu.interface";
-import icCalendarMonth from "@iconify/icons-ic/twotone-calendar-today";
-import { GenericValidators } from "@shared/validators/generic-validators";
 import { TableColumns } from "@shared/models/list-table.interface";
-import { SearchOptions } from "@shared/models/search-options.interface";
 import { MenuItems } from "@shared/models/menu-items.interface";
+import { SearchOptions } from "@shared/models/search-options.interface";
 import { IconsService } from "@shared/services/icons.service";
+import { GenericValidators } from "@shared/validators/generic-validators";
+import { WarehouseResponse } from "../../models/warehouse-response.interface";
 
 const searchOptions: SearchOptions[] = [
   {
@@ -17,14 +13,6 @@ const searchOptions: SearchOptions[] = [
     validation: [GenericValidators.defaultName],
     validation_desc: "Sólo se permite letras en esta búsqueda.",
     icon: "icName",
-  },
-  {
-    label: "Descripción",
-    value: 2,
-    placeholder: "Buscar por Descripción",
-    validation: [GenericValidators.defaultDescription],
-    validation_desc: "Sólo se permite letras y números en esta búsqueda.",
-    icon: "icDescription",
   },
 ];
 
@@ -57,7 +45,7 @@ const menuItems: MenuItems[] = [
   },
 ];
 
-const tableColumns: TableColumns<CategoryResponse>[] = [
+const tableColumns: TableColumns<WarehouseResponse>[] = [
   {
     label: "NOMBRE",
     cssLabel: ["font-bold", "text-sm"],
@@ -67,18 +55,6 @@ const tableColumns: TableColumns<CategoryResponse>[] = [
     sticky: true,
     sort: true,
     sortProperty: "name",
-    visible: true,
-    download: true,
-  },
-  {
-    label: "DESCRIPCIÓN",
-    cssLabel: ["font-bold", "text-sm"],
-    property: "description",
-    cssProperty: ["font-semibold", "text-sm", "text-left"],
-    type: "text",
-    sticky: false,
-    sort: true,
-    sortProperty: "description",
     visible: true,
     download: true,
   },
@@ -96,7 +72,7 @@ const tableColumns: TableColumns<CategoryResponse>[] = [
   {
     label: "ESTADO",
     cssLabel: ["font-bold", "text-sm"],
-    property: "stateCategory",
+    property: "stateWarehouse",
     cssProperty: ["font-semibold", "text-sm", "text-left"],
     type: "badge",
     sticky: false,
@@ -151,24 +127,14 @@ const resetFilters = {
 const getInputs: string = "";
 
 export const componentSettings = {
-  // ICONS
-  icCategory: icCategory,
-  icCalendarMonth: icCalendarMonth,
-  // LAYOUT SETTINGS
-  menuOpen: false,
-  // TABLE SETTINGS
-  tableColumns: tableColumns,
+  icWarehouse: IconsService.prototype.getIcon("icWarehouse"),
+  searchOptions,
+  menuItems,
+  tableColumns,
   initialSort: "Id",
   initialSortDir: "desc",
-  getInputs,
-  buttonLabel: "EDITAR",
-  buttonLabel2: "ELIMINAR",
-  // SEARCH FILTROS
-  menuItems: menuItems,
-  searchOptions: searchOptions,
-  filters_dates_active: false,
-  filters: filters,
+  filters,
   resetFilters,
-  datesFilterArray: ["Fecha de creación"],
-  filename: "listado-de-categorias",
+  getInputs,
+  filename: "listado-de-almacenes",
 };

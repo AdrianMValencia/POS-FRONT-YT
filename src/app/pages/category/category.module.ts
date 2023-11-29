@@ -9,6 +9,8 @@ import { SearchBoxMultipleComponent } from "@shared/components/reusables/search-
 import { MenuComponent } from "@shared/components/reusables/menu/menu.component";
 import { CategoryManageComponent } from "./components/category-manage/category-manage.component";
 import { ExportExcelComponent } from "@shared/components/reusables/export-excel/export-excel.component";
+import { FilterDateRangeYmdComponent } from "@shared/components/reusables/filter-date-range-ymd/filter-date-range-ymd.component";
+import { ButtonResetFiltersComponent } from "@shared/components/reusables/button-reset-filters/button-reset-filters.component";
 
 @NgModule({
   declarations: [CategoryListComponent, CategoryManageComponent],
@@ -20,6 +22,8 @@ import { ExportExcelComponent } from "@shared/components/reusables/export-excel/
     SearchBoxMultipleComponent,
     MenuComponent,
     ExportExcelComponent,
+    FilterDateRangeYmdComponent,
+    ButtonResetFiltersComponent,
   ],
 })
 export class CategoryModule {}

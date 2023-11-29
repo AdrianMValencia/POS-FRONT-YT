@@ -15,12 +15,19 @@ import icProvider from "@iconify/icons-ic/twotone-group";
 import icDashboard from "@iconify/icons-ic/twotone-dashboard";
 import icCategory from "@iconify/icons-ic/twotone-category";
 import icCloudDownload from "@iconify/icons-ic/twotone-cloud-download";
+import icToday from "@iconify/icons-ic/twotone-today";
+import icRefresh from "@iconify/icons-ic/twotone-restart-alt";
+import icWarehouse from "@iconify/icons-ic/twotone-widgets";
 
 @Injectable({
   providedIn: "root",
 })
 export class IconsService {
   getIcon(icon: string) {
+    if (icon == "icWarehouse") {
+      return icWarehouse;
+    }
+
     if (icon == "icEdit") {
       return icEdit;
     }
@@ -83,6 +90,14 @@ export class IconsService {
 
     if (icon == "icCloudDownload") {
       return icCloudDownload;
+    }
+
+    if (icon == "icToday") {
+      return icToday;
+    }
+
+    if (icon == "icRefresh") {
+      return icRefresh;
     }
   }
 }

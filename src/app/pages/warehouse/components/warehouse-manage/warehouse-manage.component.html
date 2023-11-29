@@ -1,0 +1,47 @@
+<form (ngSubmit)="warehouseSave()" [formGroup]="form">
+  <div mat-dialog-title class="flex justify-between">
+    <h2 class="headline m-0 text-xl text-accent">
+      <strong>{{
+        data.mode == "register"
+          ? "Registrar Nuevo Almacén"
+          : "Actualizar Almacén"
+      }}</strong>
+    </h2>
+    <button class="text-secondary" mat-dialog-close mat-icon-button>
+      <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="form.get('name').hasError('required')">
+        Campo Nombre es requerido.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="state">
+        <mat-option *ngFor="let state of configs" [value]="state.value">
+          {{ state.label }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('state').hasError('required')">
+        Campo Estado es requerido.
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>CANCELAR</button>
+    <button
+      color="purple"
+      class="bg-accent text-accent-contrast"
+      mat-button
+      type="submit"
+      [disabled]="form.invalid"
+    >
+      GUARDAR
+    </button>
+  </mat-dialog-actions>
+</form>

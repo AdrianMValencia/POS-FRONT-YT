@@ -22,6 +22,13 @@ export const endpoint = {
 
   // DOCUMENT TYPE MODULE
   LIST_DOCUMENT_TYPES: "DocumentType",
+
+  // WAREHOUSE MODULE
+  LIST_WAREHOUSES: "Warehouse",
+  WAREHOUSE_BY_ID: "Warehouse/",
+  WAREHOUSE_REGISTER: "Warehouse/Register/",
+  WAREHOUSE_EDIT: "Warehouse/Edit/",
+  WAREHOUSE_REMOVE: "Warehouse/Remove/",
 };
 
 export const httpOptions = {

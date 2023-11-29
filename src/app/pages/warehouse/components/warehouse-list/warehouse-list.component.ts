@@ -1,32 +1,33 @@
 import { Component, OnInit } from "@angular/core";
-import { CustomTitleService } from "@shared/services/custom-title.service";
 import { fadeInRight400ms } from "src/@vex/animations/fade-in-right.animation";
 import { scaleIn400ms } from "src/@vex/animations/scale-in.animation";
 import { stagger40ms } from "src/@vex/animations/stagger.animation";
-import { ProviderService } from "../../services/provider.service";
-import { componentSettings } from "./provider-list-config";
-import { DateRange, FiltersBox } from "@shared/models/search-options.interface";
+import { WarehouseService } from "../../services/warehouse.service";
+import { CustomTitleService } from "@shared/services/custom-title.service";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { ProviderManageComponent } from "../provider-manage/provider-manage.component";
-import { ProviderResponse } from "../../models/provider-response.interface";
+import { componentSettings } from "./warehouse-list-config";
+import { DateRange, FiltersBox } from "@shared/models/search-options.interface";
+import { IconsService } from "@shared/services/icons.service";
+import { WarehouseManageComponent } from "../warehouse-manage/warehouse-manage.component";
 import { RowClick } from "@shared/models/row-click.interface";
+import { WarehouseResponse } from "../../models/warehouse-response.interface";
 import Swal from "sweetalert2";
 
 @Component({
-  selector: "vex-provider-list",
-  templateUrl: "./provider-list.component.html",
-  styleUrls: ["./provider-list.component.scss"],
+  selector: "vex-warehouse-list",
+  templateUrl: "./warehouse-list.component.html",
+  styleUrls: ["./warehouse-list.component.scss"],
   animations: [stagger40ms, scaleIn400ms, fadeInRight400ms],
 })
-export class ProviderListComponent implements OnInit {
+export class WarehouseListComponent implements OnInit {
   component: any;
 
   constructor(
     customTitle: CustomTitleService,
-    public _providerService: ProviderService,
+    public _warehouseService: WarehouseService,
     public _dialog: MatDialog
   ) {
-    customTitle.set("Proveedores");
+    customTitle.set("Almacenes");
   }
 
   ngOnInit(): void {
@@ -83,57 +84,67 @@ export class ProviderListComponent implements OnInit {
     this.component.getInputs = str;
   }
 
-  openDialogRegister() {
-    this._dialog
-      .open(ProviderManageComponent, {
-        disableClose: true,
-        width: "400px",
-      })
-      .afterClosed()
-      .subscribe((res) => {
-        if (res) {
-          this.setGetInputsProviders(true);
-        }
-      });
+  setGetInputsWarehouses(refresh: boolean) {
+    this.component.filters.refresh = refresh;
+    this.formatGetInputs();
   }
 
-  rowClick(rowClick: RowClick<ProviderResponse>) {
+  get getDownloadUrl() {
+    return `Warehouse?Download=True`;
+  }
+
+  rowClick(rowClick: RowClick<WarehouseResponse>) {
     let action = rowClick.action;
-    let provider = rowClick.row;
+    let warehouse = rowClick.row;
 
     switch (action) {
       case "edit":
-        this.providerEdit(provider);
+        this.warehouseEdit(warehouse);
         break;
       case "remove":
-        this.providerRemove(provider);
+        this.warehouseRemove(warehouse);
         break;
     }
 
     return false;
   }
 
-  providerEdit(providerData: ProviderResponse) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.data = providerData;
-
+  openDialogRegister() {
     this._dialog
-      .open(ProviderManageComponent, {
-        data: dialogConfig,
+      .open(WarehouseManageComponent, {
         disableClose: true,
         width: "400px",
+        data: { mode: "register" },
       })
       .afterClosed()
       .subscribe((resp) => {
         if (resp) {
-          this.setGetInputsProviders(true);
+          this.setGetInputsWarehouses(true);
         }
       });
   }
 
-  providerRemove(providerData: ProviderResponse) {
+  warehouseEdit(warehouseData: WarehouseResponse) {
+    const dialogConfif = new MatDialogConfig();
+    dialogConfif.data = warehouseData;
+
+    this._dialog
+      .open(WarehouseManageComponent, {
+        disableClose: true,
+        width: "400px",
+        data: { dialogConfif, mode: "edit" },
+      })
+      .afterClosed()
+      .subscribe((resp) => {
+        if (resp) {
+          this.setGetInputsWarehouses(true);
+        }
+      });
+  }
+
+  warehouseRemove(warehouseData: WarehouseResponse) {
     Swal.fire({
-      title: `¿Realmente deseas eliminar el proveedor ${providerData.name}?`,
+      title: `¿Realmente deseas eliminar el almacén ${warehouseData.name}?`,
       text: "Se borrará de forma permanente!",
       icon: "warning",
       showCancelButton: true,
@@ -145,19 +156,10 @@ export class ProviderListComponent implements OnInit {
       width: 430,
     }).then((result) => {
       if (result.isConfirmed) {
-        this._providerService
-          .providerRemove(providerData.providerId)
-          .subscribe(() => this.setGetInputsProviders(true));
+        this._warehouseService
+          .warehouseRemove(warehouseData.warehouseId)
+          .subscribe(() => this.setGetInputsWarehouses(true));
       }
     });
-  }
-
-  setGetInputsProviders(refresh: boolean) {
-    this.component.filters.refresh = refresh;
-    this.formatGetInputs();
-  }
-
-  get getDownloadUrl() {
-    return `Provider?Download=True`;
   }
 }

@@ -9,7 +9,7 @@
           [icon]="component.icProvider"
           class="hidden sm:block"
         ></ic-icon>
-        <span @fadeInRight class="ml-4 block">Gestión de Proveedores</span>
+        <span @fadeInRight class="ml-4 block">Gestión de Almacenes</span>
       </h2>
       <div class="flex items-center justify-end w-full mt-5">
         <div class="flex justify-between">
@@ -58,7 +58,7 @@
         <div class="card h-full overflow-hidden flex-auto">
           <app-list-table
             (rowClick)="rowClick($event)"
-            [service]="_providerService"
+            [service]="_warehouseService"
             [columns]="component.tableColumns"
             [sortBy]="component.initialSort"
             [sortDir]="component.initialSortDir"

@@ -1,0 +1,33 @@
+<div
+  class="flex items-center bg-white border border-am-main-blue-light rounded-lg overflow-hidden w-68 mx-auto h-11"
+>
+  <div class="flex items-center justify-center pl-4">
+    <mat-date-range-input
+      [formGroup]="range"
+      [rangePicker]="rDate"
+      [max]="maxDate"
+    >
+      <input
+        readonly
+        matStartDate
+        formControlName="startDate"
+        placeholder="dd/mm/aaaa"
+      />
+      <input
+        readonly
+        matEndDate
+        formControlName="endDate"
+        placeholder="dd/mm/aaaa"
+        (dateInput)="addEvent($event)"
+      />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="rDate">
+      <mat-icon
+        class="text-am-main-blue"
+        matDatepickerToggleIcon
+        [icIcon]="icToday"
+      ></mat-icon>
+    </mat-datepicker-toggle>
+    <mat-date-range-picker #rDate></mat-date-range-picker>
+  </div>
+</div>
