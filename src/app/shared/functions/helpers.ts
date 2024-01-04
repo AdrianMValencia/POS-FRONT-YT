@@ -58,6 +58,10 @@ export function getIcon(
     if (["icDelete"].includes(iconName)) {
       iconObj.css = generalCss + COLORS_BADGE.red;
     }
+
+    if(["icVisibility"].includes(iconName)) {
+      iconObj.css = generalCss + COLORS_BADGE.teal;
+    }
   }
 
   return iconObj;

@@ -1,0 +1,82 @@
+<div class="h-full flex flex-col relative gap-4">
+    <div class="flex justify-end">
+        <div class="flex items-center bg-white border border-am-main-blue-light rounded-xl overflow-hidden w-72">
+            <button class="bg-white rounded-sm text-am-purple-dark p-2">
+                <ic-icon [icIcon]="icSearch" class="flex-none" size="24px"></ic-icon>
+            </button>
+            <input 
+                matInput (keyup)="applyFilter($event)"
+                placeholder="Buscar ..."
+                #input
+                class="border-0 h-11 outline-none rtl:pr-4 placeholder:text-secondary bg-card flex-auto"
+                maxlength="20">
+        </div>
+    </div>
+    <div [class.overflow-auto]="dataSource.filteredData.length">
+        <table
+            [@scaleFadeIn]="dataSource.filteredData"
+            [dataSource]="dataSource"
+            class="w-full" mat-table>
+            <ng-container *ngFor="let column of columns">
+                <!-- TEXT -->
+                <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+                    <th *matHeaderCellDef mat-header-cell [ngClass]="column.cssLabel">
+                        <div>{{ column.label }}</div>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <div>
+                           <p [ngClass]="column.cssProperty">
+                                {{ row[column.property].toString() | titlecase }}
+                           </p> 
+                        </div>
+                    </td>
+                </ng-container>
+                <!-- NUMBER -->
+                <ng-container *ngIf="column.type === 'number'" [matColumnDef]="column.property">
+                    <th *matHeaderCellDef mat-header-cell [ngClass]="column.cssLabel">
+                        <div>{{ column.label }}</div>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <div>
+                           <p [ngClass]="column.cssProperty">
+                                {{ row[column.property] }}
+                           </p> 
+                        </div>
+                    </td>
+                </ng-container>
+                <!-- CURRENCY -->
+                <ng-container *ngIf="column.type === 'currency'" [matColumnDef]="column.property">
+                    <th *matHeaderCellDef mat-header-cell [ngClass]="column.cssLabel">
+                        <div>{{ column.label }}</div>
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <div>
+                           <p [ngClass]="column.cssProperty">
+                                {{ row[column.property] | currency : "" : "" }}
+                           </p> 
+                        </div>
+                    </td>
+                </ng-container>
+            </ng-container>
+            <tr mat-header-row
+                *matHeaderRowDef="visibleColumns; sticky: true"
+                class="h-12"></tr>
+            <tr mat-row
+                *matRowDef="let row; columns: visibleColumns"
+                @fadeInUp
+                class="h-12"></tr>
+        </table>
+        <div *ngIf="dataSource.filteredData.length === 0" class="hide-table flex h-full flex-col justify-center items-center">
+            <img @scaleFadeIn src="assets/img/illustrations/idea.svg" class="m-12 h-64">
+            <h2 class="headline m-0 text-center">No hay resultados en esta búsqueda</h2>
+        </div>
+    </div>
+    <div class="h-24 flex gap-4 justify-between items-center flex-grap mx-10 my-2">
+        <mat-paginator
+            [class.hidden]="!dataSource.filteredData.length"
+            [pageSizeOptions]="paginatorOptions.pageSizeOptions"
+            [pageSize]="paginatorOptions.pageSize"
+            [length]="paginatorOptions.pageLength"
+            [showFirstLastButtons]="true"></mat-paginator>
+    </div>
+</div>

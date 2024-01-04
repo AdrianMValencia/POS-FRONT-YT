@@ -1,0 +1,27 @@
+<div class="flex justify-between">
+  <div class="mb-4 mt-10">
+    <button
+      type="button"
+      mat-button
+      class="text-am-purple text-sm h-10 font-medium w-full rounded-xl"
+      (click)="imgSelector.click()"
+    >
+      Subir imagen <mat-icon [icIcon]="icUpload"></mat-icon>
+    </button>
+    <input type="file" hidden #imgSelector (change)="selectedImg($event)" />
+  </div>
+  <div>
+    <div *ngIf="imgBase64">
+      <img
+        [src]="imgBase64"
+        class="w-42 h-32 border border-dashed border-am-main-blue-light rounded flex flex-col justify-between"
+      />
+    </div>
+    <div *ngIf="urlCurrentImg && !imgBase64">
+      <img
+        [src]="urlCurrentImg"
+        class="w-42 h-32 border border-dashed border-am-main-blue-light rounded flex flex-col justify-between"
+      />
+    </div>
+  </div>
+</div>

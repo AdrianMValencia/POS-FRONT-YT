@@ -1,129 +1,269 @@
 <div class="h-full flex flex-col relative">
-    <ngx-spinner
-        [fullScreen]="false"
-        bdColor="rgb(70, 84, 153, 0.3)"
-        size="medium"
-        name="modal-table"
-        color="#7084E3"
-    ></ngx-spinner>
-    <div class="h-full" [class.overflow-auto]="dataSource.filteredData.length">
-        <table
-         [@scaleFadeIn]="dataSource.filteredData"
-         [dataSource]="dataSource"
-         class="w-full"
-         mat-table
-         matSort
-         matSorDisableClear
-         [matSortActive]="sortBy"
-         [matSortDirection]="sortDir"
+  <ngx-spinner
+    [fullScreen]="false"
+    bdColor="rgb(70, 84, 153, 0.3)"
+    size="medium"
+    name="modal-table"
+    color="#7084E3"
+  ></ngx-spinner>
+  <div class="h-full" [class.overflow-auto]="dataSource.filteredData.length">
+    <table
+      [@scaleFadeIn]="dataSource.filteredData"
+      [dataSource]="dataSource"
+      class="w-full"
+      mat-table
+      matSort
+      matSorDisableClear
+      [matSortActive]="sortBy"
+      [matSortDirection]="sortDir"
+    >
+      <ng-container *ngFor="let column of columns">
+        <ng-container
+          *ngIf="column.type === 'text'"
+          [matColumnDef]="column.property"
+          [sticky]="column.sticky"
         >
-        <ng-container *ngFor="let column of columns">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [mat-sort-header]="column.sortProperty"
+            [disabled]="!column.sort"
+            [ngClass]="column.cssLabel"
+          >
+            {{ column.label }}
+          </th>
 
-            <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property" [sticky]="column.sticky">
-
-                <th mat-header-cell *matHeaderCellDef
-                    [mat-sort-header]="column.sortProperty"
-                    [disabled]="!column.sort"
-                    [ngClass]="column.cssLabel">
-                    {{ column.label }}
-                </th>
-
-                <td mat-cell *matCellDef="let row">
-                    <div>
-                        <div *ngIf="!row[column.subProperty]">
-                            <p [ngClass]="column.cssProperty">{{ row[column.property] | titlecase }}</p>
-                        </div>
-                        <div *ngIf="row[column.subProperty]">
-                            <p [ngClass]="column.cssProperty">{{ row[column.property] | titlecase }}</p>
-                            <p [ngClass]="column.cssSubProperty">{{ row[column.subProperty] | titlecase }}</p>
-                        </div>
-                    </div>
-                </td>
-
-            </ng-container>
-
-            <ng-container *ngIf="column.type === 'datetime'" [matColumnDef]="column.property">
-
-                <th mat-header-cell *matHeaderCellDef
-                    [mat-sort-header]="column.sortProperty"
-                    [disabled]="!column.sort"
-                    [ngClass]="column.cssLabel">
-                    {{ column.label }}
-                </th>
-
-                <td mat-cell *matCellDef="let row" [ngClass]="column.cssProperty">
-                    {{ row[column.property] | date:'dd-MM-yyyy hh:mm:ss a' }}
-                </td>
-
-            </ng-container>
-
-            <ng-container *ngIf="column.type === 'badge'" [matColumnDef]="column.property">
-
-                <th mat-header-cell *matHeaderCellDef
-                    [mat-sort-header]="column.sortProperty"
-                    [disabled]="!column.sort"
-                    [ngClass]="column.cssLabel">
-                    {{ column.label }}
-                </th>
-
-                <td mat-cell *matCellDef="let row" [ngClass]="column.cssProperty">
-
-                    <ng-container>
-                        <div class="rounded px-2 py-1 font-medium text-xs inline-block" [ngClass]="row['badgeColor']">
-                            {{ row[column.property] | uppercase }}
-                        </div>
-                    </ng-container>
-
-                </td>
-            
-            </ng-container>
-
-            <ng-container *ngIf="column.type === 'icon'" [matColumnDef]="column.property">
-
-                <th mat-header-cell *matHeaderCellDef [ngClass]="column.cssLabel">
-                    {{ column.label }}
-                </th>
-
-                <td mat-cell *matCellDef="let row" [ngClass]="column.cssProperty">
-                    <div *ngIf="row[column.property].icon"
-                        [ngClass]="row[column.property].css"
-                        [class]="column.action ? 'cursor-pointer' : ''"
-                        (click)="column.action ? rowClick.emit(
-                            {
-                                action: column.action,
-                                row: row
-                            }) : ''">
-                            <mat-icon matTooltipPosition="above"
-                                [matTooltip]="row[column.property].tooltip"
-                                [icIcon]="row[column.property].icon"
-                            ></mat-icon>
-                    </div>
-                </td>
-
-            </ng-container>
-
+          <td mat-cell *matCellDef="let row">
+            <div>
+              <div *ngIf="!row[column.subProperty]">
+                <p [ngClass]="column.cssProperty">
+                  {{ row[column.property] | titlecase }}
+                </p>
+              </div>
+              <div *ngIf="row[column.subProperty]">
+                <p [ngClass]="column.cssProperty">
+                  {{ row[column.property] | titlecase }}
+                </p>
+                <p [ngClass]="column.cssSubProperty">
+                  {{ row[column.subProperty] | titlecase }}
+                </p>
+              </div>
+            </div>
+          </td>
         </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="visibleColumns; sticky: true" class="h-18"></tr>
-            <tr mat-row *matRowDef="let row; let i = index; columns : visibleColumns;" @fadeInUp class="h-16"></tr>
-        </table>
-        <div *ngIf="dataSource.filteredData.length === 0" class="flex h-full flex-col justify-center items-center">
-            <img @scaleFadeIn class="m-12 h-64" src="../../../../assets/img/illustrations/idea.svg">
-            <h2 class="headline m-0 text-center">No hay resultados en esta búsqueda</h2>
-        </div>
-    </div>
-    <div class="h-24 flex gap-4 justify-between items-center flex-grap mx-10 my-2">
-        <div class="flex gap-3" *ngIf="dataSource.filteredData.length !== 0">
-            <ng-container>
+        <ng-container
+          *ngIf="column.type === 'textUppercase'"
+          [matColumnDef]="column.property"
+          [sticky]="column.sticky"
+        >
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [mat-sort-header]="column.sortProperty"
+            [disabled]="!column.sort"
+            [ngClass]="column.cssLabel"
+          >
+            {{ column.label }}
+          </th>
 
+          <td mat-cell *matCellDef="let row">
+            <div>
+              <div *ngIf="!row[column.subProperty]">
+                <p [ngClass]="column.cssProperty">
+                  {{ row[column.property] | uppercase }}
+                </p>
+              </div>
+              <div *ngIf="row[column.subProperty]">
+                <p [ngClass]="column.cssProperty">
+                  {{ row[column.property] | uppercase }}
+                </p>
+                <p [ngClass]="column.cssSubProperty">
+                  {{ row[column.subProperty] | uppercase }}
+                </p>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container
+          *ngIf="column.type === 'image'"
+          [matColumnDef]="column.property"
+          [sticky]="column.sticky"
+        >
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [mat-sort-header]="column.sortProperty"
+            [disabled]="!column.sort"
+            [ngClass]="column.cssLabel"
+          >
+            {{ column.label }}
+          </th>
+
+          <td mat-cell *matCellDef="let row">
+            <img
+              [src]="row[column.property]"
+              class="avatar h-9 w-9 align-middle my-2"
+            />
+          </td>
+        </ng-container>
+
+        <ng-container
+          *ngIf="column.type === 'currency'"
+          [matColumnDef]="column.property"
+          [sticky]="column.sticky"
+        >
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [mat-sort-header]="column.sortProperty"
+            [disabled]="!column.sort"
+            [ngClass]="column.cssLabel"
+          >
+            {{ column.label }}
+          </th>
+
+          <td mat-cell *matCellDef="let row" [ngClass]="column.cssProperty">
+            {{ row[column.property] | currency : "" : "" }}
+          </td>
+        </ng-container>
+
+        <ng-container
+          *ngIf="column.type === 'number'"
+          [matColumnDef]="column.property"
+          [sticky]="column.sticky"
+        >
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [mat-sort-header]="column.sortProperty"
+            [disabled]="!column.sort"
+            [ngClass]="column.cssLabel"
+          >
+            {{ column.label }}
+          </th>
+
+          <td mat-cell *matCellDef="let row" [ngClass]="column.cssProperty">
+            {{ row[column.property] }}
+          </td>
+        </ng-container>
+
+        <ng-container
+          *ngIf="column.type === 'datetime'"
+          [matColumnDef]="column.property"
+        >
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [mat-sort-header]="column.sortProperty"
+            [disabled]="!column.sort"
+            [ngClass]="column.cssLabel"
+          >
+            {{ column.label }}
+          </th>
+
+          <td mat-cell *matCellDef="let row" [ngClass]="column.cssProperty">
+            {{ row[column.property] | date : "dd-MM-yyyy hh:mm:ss a" }}
+          </td>
+        </ng-container>
+
+        <ng-container
+          *ngIf="column.type === 'badge'"
+          [matColumnDef]="column.property"
+        >
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [mat-sort-header]="column.sortProperty"
+            [disabled]="!column.sort"
+            [ngClass]="column.cssLabel"
+          >
+            {{ column.label }}
+          </th>
+
+          <td mat-cell *matCellDef="let row" [ngClass]="column.cssProperty">
+            <ng-container>
+              <div
+                class="rounded px-2 py-1 font-medium text-xs inline-block"
+                [ngClass]="row['badgeColor']"
+              >
+                {{ row[column.property] | uppercase }}
+              </div>
             </ng-container>
-        </div>
-        <mat-paginator
-            [class.hidden]="!dataSource.filteredData.length"
-            [pageSizeOptions]="paginatorOptions.pageSizeOptions"
-            [pageSize]="paginatorOptions.pageSize"
-            [length]="paginatorOptions.pageLength"
-            [showFirstLastButtons]="true"
-        ></mat-paginator>
+          </td>
+        </ng-container>
+
+        <ng-container
+          *ngIf="column.type === 'icon'"
+          [matColumnDef]="column.property"
+        >
+          <th mat-header-cell *matHeaderCellDef [ngClass]="column.cssLabel">
+            {{ column.label }}
+          </th>
+
+          <td mat-cell *matCellDef="let row" [ngClass]="column.cssProperty">
+            <div
+              *ngIf="row[column.property].icon"
+              [ngClass]="row[column.property].css"
+              [class]="column.action ? 'cursor-pointer' : ''"
+              (click)="
+                column.action
+                  ? rowClick.emit({
+                      action: column.action,
+                      row: row
+                    })
+                  : ''
+              "
+            >
+              <mat-icon
+                matTooltipPosition="above"
+                [matTooltip]="row[column.property].tooltip"
+                [icIcon]="row[column.property].icon"
+              ></mat-icon>
+            </div>
+          </td>
+        </ng-container>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="visibleColumns; sticky: true"
+        class="h-18"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; let i = index; columns: visibleColumns"
+        @fadeInUp
+        class="h-16"
+      ></tr>
+    </table>
+    <div
+      *ngIf="dataSource.filteredData.length === 0"
+      class="flex h-full flex-col justify-center items-center"
+    >
+      <img
+        @scaleFadeIn
+        class="m-12 h-64"
+        src="../../../../assets/img/illustrations/idea.svg"
+      />
+      <h2 class="headline m-0 text-center">
+        No hay resultados en esta búsqueda
+      </h2>
     </div>
+  </div>
+  <div
+    class="h-24 flex gap-4 justify-between items-center flex-grap mx-10 my-2"
+  >
+    <div class="flex gap-3" *ngIf="dataSource.filteredData.length !== 0">
+      <ng-container> </ng-container>
+    </div>
+    <mat-paginator
+      [class.hidden]="!dataSource.filteredData.length"
+      [pageSizeOptions]="paginatorOptions.pageSizeOptions"
+      [pageSize]="paginatorOptions.pageSize"
+      [length]="paginatorOptions.pageLength"
+      [showFirstLastButtons]="true"
+    ></mat-paginator>
+  </div>
 </div>

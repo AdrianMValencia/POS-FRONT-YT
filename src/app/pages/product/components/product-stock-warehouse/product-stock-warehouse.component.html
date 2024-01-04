@@ -1,0 +1,16 @@
+<div mat-dialog-title class="flex justify-between">
+    <h2 class="headline m-0 text-xl text-accent">
+        <strong>Stock Actual del Producto por Almacén</strong>
+    </h2>
+    <button class="text-secondary" mat-dialog-close mat-icon-button>
+        <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>
+</div>
+<strong class="text-primary">{{ codeProduct }} - {{ nameProduct }}</strong>
+<mat-dialog-content>
+    <app-list-table-simple
+        [columns]="component.tableColumns"
+        [data]="productStockByWarehouses"
+        *ngIf="productStockByWarehouses">
+    </app-list-table-simple>
+</mat-dialog-content>

@@ -1,0 +1,35 @@
+<mat-form-field appearance="outline" class="w-full">
+  <mat-label>{{ label }}</mat-label>
+  <div class="w-full flex h-5">
+    <input
+      [placeholder]="placeholder"
+      matInput
+      [formControl]="control"
+      [matAutocomplete]="optionAutocomplete"
+      autocomplete="on"
+    />
+    <ng-container>
+      <button @scaleInOut (click)="control.reset()" class="mr-4" type="button">
+        <ic-icon [icIcon]="icClose"></ic-icon>
+      </button>
+
+      <ic-icon
+        class="text-xl text-am-main-blue-light"
+        [icIcon]="icArrowDropDown"
+      ></ic-icon>
+    </ng-container>
+  </div>
+  <mat-error *ngIf="control.hasError('required')">
+    Este campo es obligatorio.
+  </mat-error>
+
+  <mat-autocomplete
+    #optionAutocomplete="matAutocomplete"
+    [displayWith]="showDropdown.bind(this)"
+    autoActiveFirstOption
+  >
+    <mat-option *ngFor="let option of optionsFilters" [value]="option.id">{{
+      option.description
+    }}</mat-option>
+  </mat-autocomplete>
+</mat-form-field>

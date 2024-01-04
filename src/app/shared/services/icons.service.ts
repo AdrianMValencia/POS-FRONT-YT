@@ -18,12 +18,25 @@ import icCloudDownload from "@iconify/icons-ic/twotone-cloud-download";
 import icToday from "@iconify/icons-ic/twotone-today";
 import icRefresh from "@iconify/icons-ic/twotone-restart-alt";
 import icWarehouse from "@iconify/icons-ic/twotone-widgets";
+import icManage from "@iconify/icons-ic/twotone-article";
+import icProduct from "@iconify/icons-ic/twotone-inventory-2";
+import icUpload from "@iconify/icons-ic/twotone-upload-file";
 
 @Injectable({
   providedIn: "root",
 })
 export class IconsService {
   getIcon(icon: string) {
+    if (icon == "icUpload") {
+      return icUpload;
+    }
+    if (icon == "icProduct") {
+      return icProduct;
+    }
+    if (icon == "icManage") {
+      return icManage;
+    }
+
     if (icon == "icWarehouse") {
       return icWarehouse;
     }

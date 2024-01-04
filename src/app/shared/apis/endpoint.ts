@@ -29,6 +29,14 @@ export const endpoint = {
   WAREHOUSE_REGISTER: "Warehouse/Register/",
   WAREHOUSE_EDIT: "Warehouse/Edit/",
   WAREHOUSE_REMOVE: "Warehouse/Remove/",
+
+  // PRODUCT MODULE
+  LIST_PRODUCTS: "Product",
+  PRODUCT_BY_ID: "Product/",
+  PRODUCT_REGISTER: "Product/Register/",
+  PRODUCT_EDIT: "Product/Edit/",
+  PRODUCT_REMOVE: "Product/Remove/",
+  PRODUCT_STOCK_WAREHOUSE: "Product/ProductStockByWarehouse/"
 };
 
 export const httpOptions = {
