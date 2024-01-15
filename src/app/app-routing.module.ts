@@ -42,6 +42,13 @@ const childrenRoutes: VexRoutes = [
       import("./pages/product/product.module").then((m) => m.ProductModule),
   },
   {
+    path: "proceso-compras",
+    loadChildren: () =>
+      import("./pages/purcharse/purcharse.module").then(
+        (m) => m.PurcharseModule
+      ),
+  },
+  {
     path: "**",
     component: NotFoundComponent,
   },

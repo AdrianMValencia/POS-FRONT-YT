@@ -15,6 +15,7 @@ export const endpoint = {
 
   // PROVIDER MODULE
   LIST_PROVIDERS: "Provider",
+  LIST_SELECT_PROVIDERS: "Provider/Select",
   PROVIDER_REGISTER: "Provider/Register/",
   PROVIDER_EDIT: "Provider/Edit/",
   PROVIDER_BY_ID: "Provider/",
@@ -25,6 +26,7 @@ export const endpoint = {
 
   // WAREHOUSE MODULE
   LIST_WAREHOUSES: "Warehouse",
+  LIST_SELECT_WAREHOUSES: "Warehouse/Select",
   WAREHOUSE_BY_ID: "Warehouse/",
   WAREHOUSE_REGISTER: "Warehouse/Register/",
   WAREHOUSE_EDIT: "Warehouse/Edit/",
@@ -36,7 +38,10 @@ export const endpoint = {
   PRODUCT_REGISTER: "Product/Register/",
   PRODUCT_EDIT: "Product/Edit/",
   PRODUCT_REMOVE: "Product/Remove/",
-  PRODUCT_STOCK_WAREHOUSE: "Product/ProductStockByWarehouse/"
+  PRODUCT_STOCK_WAREHOUSE: "Product/ProductStockByWarehouse/",
+
+  // PURCHARSE MODULE
+  LIST_PURCHARSES: "Purcharse",
 };
 
 export const httpOptions = {

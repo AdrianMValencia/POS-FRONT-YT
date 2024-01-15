@@ -1,0 +1,51 @@
+<div class="w-full h-full flex flex-col">
+  <div class="px-gutter pt-6 pb-20 bg-primary flex-none">
+    <div class="flex items-center justify-between">
+      <h2
+        class="headline text-primary-contrast m-0 flex items-center w-full max-w-xxxl mr-6"
+      >
+        <ic-icon @scaleIn [icIcon]="icPurcharse"></ic-icon>
+        <span @fadeInRight class="ml-4 block">Nueva Compra de Productos</span>
+      </h2>
+      <button mat-button class="text-am-base-background">REGRESAR</button>
+    </div>
+  </div>
+  <div class="-mt-14 p-6 pt-0 overflow-hidden flex flex-col md:flex-row gap-2">
+    <form class="w-full md:w-6/12" [formGroup]="form">
+      <div class="bg-white rounded-lg p-4 shadow">
+        <div class="flex items-center">
+          <div
+            @fadeInRight
+            class="text-lg font-medium text-am-main-blue-dark ml-2"
+          >
+            Nueva Compra
+          </div>
+        </div>
+        <br />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <app-select-autocomplete
+            label="Proveedores"
+            [control]="form.get('providerId')"
+            [required]="true"
+            [listOptions]="providerSelect"
+          ></app-select-autocomplete>
+
+          <app-select-autocomplete
+            label="Almacenes"
+            [control]="form.get('warehouseId')"
+            [required]="true"
+            [listOptions]="warehouseSelect"
+          ></app-select-autocomplete>
+        </div>
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Observación</mat-label>
+          <textarea
+            matInput
+            placeholder="Ingrese una Observación ..."
+            formControlName="observation"
+          ></textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+</div>

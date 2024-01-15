@@ -21,12 +21,20 @@ import icWarehouse from "@iconify/icons-ic/twotone-widgets";
 import icManage from "@iconify/icons-ic/twotone-article";
 import icProduct from "@iconify/icons-ic/twotone-inventory-2";
 import icUpload from "@iconify/icons-ic/twotone-upload-file";
+import icSales from "@iconify/icons-ic/twotone-point-of-sale";
+import icCancel from "@iconify/icons-ic/twotone-block";
 
 @Injectable({
   providedIn: "root",
 })
 export class IconsService {
   getIcon(icon: string) {
+    if (icon == "icCancel") {
+      return icCancel;
+    }
+    if (icon == "icSales") {
+      return icSales;
+    }
     if (icon == "icUpload") {
       return icUpload;
     }
