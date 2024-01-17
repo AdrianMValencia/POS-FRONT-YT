@@ -16,7 +16,10 @@ export interface TableColumns<T> {
     | "image"
     | "currency"
     | "textUppercase"
-    | "number";
+    | "number"
+    | "quantityPurcharse"
+    | "unitPurcharsePrice"
+    | "totalAmount";
   visible: boolean;
   sort: boolean;
   sortProperty?: string;

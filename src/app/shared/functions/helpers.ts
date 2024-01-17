@@ -66,6 +66,10 @@ export function getIcon(
     if (["icCancel"].includes(iconName)) {
       iconObj.css = generalCss + COLORS_BADGE.coral;
     }
+
+    if (["icAdd"].includes(iconName)) {
+      iconObj.css = generalCss + COLORS_BADGE.green;
+    }
   }
 
   return iconObj;

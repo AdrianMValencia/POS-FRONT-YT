@@ -23,12 +23,24 @@ import icProduct from "@iconify/icons-ic/twotone-inventory-2";
 import icUpload from "@iconify/icons-ic/twotone-upload-file";
 import icSales from "@iconify/icons-ic/twotone-point-of-sale";
 import icCancel from "@iconify/icons-ic/twotone-block";
+import icAdd from "@iconify/icons-ic/twotone-add-shopping-cart";
+import icMin from "@iconify/icons-ic/twotone-remove";
+import icAddDetail from "@iconify/icons-ic/twotone-add";
 
 @Injectable({
   providedIn: "root",
 })
 export class IconsService {
   getIcon(icon: string) {
+    if (icon == "icMin") {
+      return icMin;
+    }
+    if (icon == "icAddDetail") {
+      return icAddDetail;
+    }
+    if (icon == "icAdd") {
+      return icAdd;
+    }
     if (icon == "icCancel") {
       return icCancel;
     }

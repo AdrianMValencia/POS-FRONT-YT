@@ -27,6 +27,7 @@ import { TableColumns, TableFooter } from "@shared/models/list-table.interface";
 import { getEsPaginatorIntl } from "@shared/paginator-intl/es-paginator-intl";
 import { AlertService } from "@shared/services/alert.service";
 import { DefaultService } from "@shared/services/default.service";
+import { IconsService } from "@shared/services/icons.service";
 import { IconModule } from "@visurel/iconify-angular";
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { startWith, switchMap } from "rxjs/operators";
@@ -63,6 +64,7 @@ import { scaleFadeIn400ms } from "src/@vex/animations/scale-fade-in.animation";
 export class ListTableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   @Input() service?: DefaultService;
   @Input() columns?: TableColumns<T>[];
+  @Input() numRecords?: number = 10;
   @Input() getInputs: any;
   @Input() sortBy?: string;
   @Input() sortDir: string = "asc";
@@ -81,10 +83,13 @@ export class ListTableComponent<T> implements OnInit, AfterViewInit, OnChanges {
   visibleFooter?: Array<keyof T | string | object>;
 
   paginatorOptions = {
-    pageSizeOptions: [10, 20, 50],
-    pageSize: 10,
+    pageSizeOptions: [this.numRecords, 20, 50],
+    pageSize: this.numRecords,
     pageLength: 0,
   };
+
+  icMin = IconsService.prototype.getIcon("icMin");
+  icAdd = IconsService.prototype.getIcon("icAddDetail");
 
   constructor(
     private _spinner: NgxSpinnerService,
@@ -174,5 +179,28 @@ export class ListTableComponent<T> implements OnInit, AfterViewInit, OnChanges {
     this.paginator.page.subscribe(() => {
       this.changesGetInputs.emit();
     });
+  }
+
+  substractQuantityPurcharse(row: any) {
+    if (row.quantity > 0) {
+      row.quantity--;
+    }
+    this.calculateTotalAmountPurcharse(row);
+  }
+
+  increaseQuantityPurcharse(row: any) {
+    row.quantity++;
+    this.calculateTotalAmountPurcharse(row);
+  }
+
+  calculateTotalAmountPurcharse(row: any) {
+    const quantity = row.quantity;
+    const unitPurcharsePrice = row.unitPurcharsePrice;
+
+    if (quantity || unitPurcharsePrice) {
+      row.totalAmount = (quantity * unitPurcharsePrice).toFixed(2);
+    } else {
+      row.totalAmount = "0.00";
+    }
   }
 }

@@ -45,6 +45,33 @@
             formControlName="observation"
           ></textarea>
         </mat-form-field>
+
+        <div class="flex justify-between">
+          <div
+            @fadeInRight
+            class="text-lg font-medium text-am-main-blue-dark ml-2"
+          >
+            Productos
+          </div>
+          <app-search-box-multiple
+            [searchOptions]="componentPurcharseDetail.searchOptionsProducts"
+            (search)="search($event)"
+            [currentValue]="componentPurcharseDetail.filters.textFilter"
+          >
+          </app-search-box-multiple>
+        </div>
+        <br />
+        <div class="card h-full overflow-hidden flex-auto">
+          <app-list-table
+            class="w-full border rounded-lg"
+            [service]="_purcharseDetailService"
+            [columns]="componentPurcharseDetail.tableColumnsProducts"
+            [numRecords]="numRecordsProducts"
+            [sortBy]="componentPurcharseDetail.initialSort"
+            [sortDir]="componentPurcharseDetail.initialSortDir"
+            [getInputs]="componentPurcharseDetail.getInputs"
+          ></app-list-table>
+        </div>
       </div>
     </form>
   </div>
