@@ -9,6 +9,8 @@ import { scaleIn400ms } from "src/@vex/animations/scale-in.animation";
 import { componentSettings } from "../purcharse-list/purcharse-list-config";
 import { FiltersBox } from "@shared/models/search-options.interface";
 import { PurcharseDetailService } from "../../services/purcharse-detail.service";
+import { RowClick } from "@shared/models/row-click.interface";
+import { ProductDetailsResponse } from "../../models/purcharse-response.interface";
 
 @Component({
   selector: "vex-purcharse-create",
@@ -25,6 +27,13 @@ export class PurcharseCreateComponent implements OnInit {
   numRecordsProducts: number = 3;
 
   icPurcharse = IconsService.prototype.getIcon("icSales");
+  icRemove = IconsService.prototype.getIcon("icDelete");
+
+  cartDetails: any | ProductDetailsResponse[] = [];
+
+  subtotal: number = 0;
+  igv: number = 0;
+  total: number = 0;
 
   initForm(): void {
     this.form = this._fb.group({
@@ -67,5 +76,77 @@ export class PurcharseCreateComponent implements OnInit {
     this.formatGetInputs();
   }
 
-  formatGetInputs() {}
+  formatGetInputs() {
+    let str = "";
+
+    if (this.componentPurcharseDetail.filters.textFilter != null) {
+      str += `&numFilter=${this.componentPurcharseDetail.filters.numFilter}&textFilter=${this.componentPurcharseDetail.filters.textFilter}`;
+    }
+
+    this.componentPurcharseDetail.getInputs = str;
+  }
+
+  rowClick(rowClick: RowClick<ProductDetailsResponse>) {
+    let action = rowClick.action;
+    let products = rowClick.row;
+
+    switch (action) {
+      case "addDetail":
+        this.addDetail(products);
+        break;
+    }
+
+    return false;
+  }
+
+  addDetail(products: ProductDetailsResponse) {
+    if (products.totalAmount <= 0) {
+      return;
+    }
+
+    const productCopy = { ...products };
+
+    const existingProduct = this.cartDetails.find(
+      (item) => item.code === productCopy.code
+    );
+
+    if (existingProduct) {
+      existingProduct.quantity += productCopy.quantity;
+      existingProduct.totalAmount =
+        existingProduct.quantity * existingProduct.unitPurcharsePrice;
+    } else {
+      this.cartDetails.push(productCopy);
+    }
+
+    this.calculateSubtotal();
+    this.calculateIGV();
+    this.calculateTotal();
+  }
+
+  calculateSubtotal() {
+    this.subtotal = this.cartDetails.reduce(
+      (acc, product) => acc + product.quantity * product.unitPurcharsePrice,
+      0
+    );
+  }
+
+  calculateIGV() {
+    this.igv = this.subtotal * 0.18;
+  }
+
+  calculateTotal() {
+    this.total = this.subtotal + this.igv;
+  }
+
+  removeFromCart(product: ProductDetailsResponse) {
+    const index = this.cartDetails.indexOf(product);
+
+    if (index !== -1) {
+      this.cartDetails.splice(index, 1);
+    }
+
+    this.calculateSubtotal();
+    this.calculateIGV();
+    this.calculateTotal();
+  }
 }

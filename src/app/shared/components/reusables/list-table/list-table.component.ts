@@ -10,9 +10,11 @@ import {
   SimpleChanges,
   ViewChild,
 } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   MatFormFieldDefaultOptions,
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
+  MatFormFieldModule,
 } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import {
@@ -28,6 +30,7 @@ import { getEsPaginatorIntl } from "@shared/paginator-intl/es-paginator-intl";
 import { AlertService } from "@shared/services/alert.service";
 import { DefaultService } from "@shared/services/default.service";
 import { IconsService } from "@shared/services/icons.service";
+import { SharedModule } from "@shared/shared.module";
 import { IconModule } from "@visurel/iconify-angular";
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
 import { startWith, switchMap } from "rxjs/operators";
@@ -46,6 +49,9 @@ import { scaleFadeIn400ms } from "src/@vex/animations/scale-fade-in.animation";
     MatIconModule,
     IconModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    FormsModule,
+    SharedModule,
   ],
   templateUrl: "./list-table.component.html",
   styleUrls: ["./list-table.component.scss"],

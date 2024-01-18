@@ -64,6 +64,7 @@
         <div class="card h-full overflow-hidden flex-auto">
           <app-list-table
             class="w-full border rounded-lg"
+            (rowClick)="rowClick($event)"
             [service]="_purcharseDetailService"
             [columns]="componentPurcharseDetail.tableColumnsProducts"
             [numRecords]="numRecordsProducts"
@@ -74,5 +75,129 @@
         </div>
       </div>
     </form>
+
+    <div class="w-full md:w-6/12">
+      <div class="bg-white rounded-lg p-4 shadow">
+        <div class="flex items-center">
+          <div
+            @fadeInRight
+            class="text-lg font-medium text-am-main-blue-dark ml-2"
+          >
+            Orden Compra
+          </div>
+        </div>
+        <br />
+        <div class="w-full overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th
+                  class="px-6 py-3 bg-am-main-blue-light rounded-l-lg text-left text-xss leading-4 font-bold text-am-main-blue-dark tracking-wider"
+                ></th>
+                <th
+                  class="px-6 py-3 bg-am-main-blue-light text-left text-xss leading-4 font-bold text-am-main-blue-dark tracking-wider"
+                >
+                  CÓDIGO
+                </th>
+                <th
+                  class="px-6 py-3 bg-am-main-blue-light text-left text-xss leading-4 font-bold text-am-main-blue-dark tracking-wider"
+                >
+                  NOMBRE
+                </th>
+                <th
+                  class="px-6 py-3 bg-am-main-blue-light text-left text-xss leading-4 font-bold text-am-main-blue-dark tracking-wider"
+                >
+                  CANTIDAD
+                </th>
+                <th
+                  class="px-6 py-3 bg-am-main-blue-light text-left text-xss leading-4 font-bold text-am-main-blue-dark tracking-wider"
+                >
+                  PRECIO U.
+                </th>
+                <th
+                  class="px-6 py-3 bg-am-main-blue-light text-left text-xss leading-4 font-bold text-am-main-blue-dark tracking-wider"
+                >
+                  TOTAL
+                </th>
+                <th class="px-6 py-3 bg-am-main-blue-light rounded-r-lg"></th>
+              </tr>
+            </thead>
+            <tbody class="bg-white">
+              <tr *ngFor="let product of cartDetails">
+                <td class="px-6 py-4">
+                  <img
+                    [src]="product.image"
+                    alt="{{ product.name }}"
+                    class="avatar h-15 w-15 my-2"
+                  />
+                </td>
+                <td class="px-6 py-4 font-semibold text-xs text-left">
+                  {{ product.code }}
+                </td>
+                <td class="px-6 py-4 font-semibold text-xs text-left">
+                  {{ product.name }}
+                </td>
+                <td class="px-6 py-4 font-semibold text-xs text-left">
+                  {{ product.quantity }}
+                </td>
+                <td class="px-6 py-4 font-semibold text-xs text-left">
+                  {{ product.unitPurcharsePrice | currency : "" : "" }}
+                </td>
+                <td class="px-6 py-4 font-semibold text-xs text-left">
+                  {{ product.totalAmount | currency : "" : "" }}
+                </td>
+                <td class="px-6 py-4">
+                  <div
+                    class="flex justify-center items-center cursor-pointer p-1.5 w-fit rounded-full text-am-new-red-dark bg-am-new-red-light border-am-new-red-dark mb-1"
+                  >
+                    <mat-icon
+                      [icIcon]="icRemove"
+                      matTooltip="Quitar producto del detalle"
+                      (click)="removeFromCart(product)"
+                    ></mat-icon>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+            <br />
+            <br />
+            <tfoot>
+              <tr>
+                <td colspan="4"></td>
+                <td class="font-semibold px-6 py-3 text-right">Subtotal:</td>
+                <td class="font-semibold px-6 py-3">
+                  {{ subtotal | currency : "" : "" }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4"></td>
+                <td class="font-semibold px-6 py-3 text-right">IGV:</td>
+                <td class="font-semibold px-6 py-3">
+                  {{ igv | currency : "" : "" }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4"></td>
+                <td class="font-semibold px-6 py-3 text-right">Monto Total:</td>
+                <td class="font-semibold px-6 py-3">
+                  {{ total | currency : "" : "" }}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <hr />
+          <br />
+          <div class="flex justify-end">
+            <button
+              class="bg-accent text-accent-contrast"
+              mat-button
+              [disabled]="form.invalid || cartDetails.length == 0"
+            >
+              GUARDAR
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
