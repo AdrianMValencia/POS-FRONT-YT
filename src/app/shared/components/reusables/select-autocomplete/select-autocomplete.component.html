@@ -7,10 +7,11 @@
       [formControl]="control"
       [matAutocomplete]="optionAutocomplete"
       autocomplete="on"
+      [readonly]="readonly"
     />
     <ng-container>
       <button @scaleInOut (click)="control.reset()" class="mr-4" type="button">
-        <ic-icon [icIcon]="icClose"></ic-icon>
+        <ic-icon [icIcon]="icClose" [hidden]="readonly"></ic-icon>
       </button>
 
       <ic-icon

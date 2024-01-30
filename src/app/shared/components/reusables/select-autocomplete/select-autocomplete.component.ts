@@ -26,6 +26,7 @@ export class SelectAutocompleteComponent implements OnInit, OnChanges {
   @Input() placeholder: string = "";
   @Input() listOptions: SelectAutoComplete[];
   @Input() required: boolean = false;
+  @Input() readonly: boolean = false;
 
   optionsFilters: SelectAutoComplete[];
 

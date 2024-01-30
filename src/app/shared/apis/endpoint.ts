@@ -42,6 +42,9 @@ export const endpoint = {
 
   // PURCHARSE MODULE
   LIST_PURCHARSES: "Purcharse",
+  PURCHARSE_BY_ID: "Purcharse/",
+  PURCHARSE_REGISTER: "Purcharse/Register/",
+  PURCHARSE_CANCEL: "Purcharse/Cancel/",
 };
 
 export const httpOptions = {

@@ -51,6 +51,7 @@
       <mat-drawer-content class="p-gutter pt-0 flex-auto flex items-start">
         <div class="card h-full overflow-hidden flex-auto">
           <app-list-table
+            (rowClick)="rowClick($event)"
             [service]="_purcharseService"
             [columns]="component.tableColumns"
             [sortBy]="component.initialSort"

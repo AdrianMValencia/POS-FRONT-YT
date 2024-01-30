@@ -6,8 +6,12 @@ import { AlertService } from "@shared/services/alert.service";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment as env } from "src/environments/environment";
-import { PurcharseResponse } from "../models/purcharse-response.interface";
+import {
+  PurcharseByIdResponse,
+  PurcharseResponse,
+} from "../models/purcharse-response.interface";
 import { getIcon } from "@shared/functions/helpers";
+import { PurcharseRequest } from "../models/purcharse-request.interface";
 
 @Injectable({
   providedIn: "root",
@@ -44,5 +48,30 @@ export class PurcharseService {
     });
 
     return response;
+  }
+
+  purcharseById(purcharseId: number): Observable<PurcharseByIdResponse> {
+    const requestUrl = `${env.api}${endpoint.PURCHARSE_BY_ID}${purcharseId}`;
+    return this._http.get(requestUrl).pipe(
+      map((resp: BaseResponse) => {
+        return resp.data;
+      })
+    );
+  }
+
+  purcharseRegister(purcharse: PurcharseRequest) {
+    const requestUrl = `${env.api}${endpoint.PURCHARSE_REGISTER}`;
+    return this._http.post<BaseResponse>(requestUrl, purcharse);
+  }
+
+  purcharseCancel(purcharseId: number): Observable<void> {
+    const requestUrl = `${env.api}${endpoint.PURCHARSE_CANCEL}${purcharseId}`;
+    return this._http.put(requestUrl, "").pipe(
+      map((resp: BaseResponse) => {
+        if (resp.isSuccess) {
+          this._alert.success("Excelente", resp.message);
+        }
+      })
+    );
   }
 }

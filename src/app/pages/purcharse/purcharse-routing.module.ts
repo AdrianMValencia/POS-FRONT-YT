@@ -16,6 +16,10 @@ const routes: Routes = [
     path: "crear",
     component: PurcharseCreateComponent,
   },
+  {
+    path: "crear/:purcharseId",
+    component: PurcharseCreateComponent,
+  },
 ];
 
 @NgModule({

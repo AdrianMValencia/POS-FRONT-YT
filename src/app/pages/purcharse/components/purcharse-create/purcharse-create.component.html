@@ -7,7 +7,9 @@
         <ic-icon @scaleIn [icIcon]="icPurcharse"></ic-icon>
         <span @fadeInRight class="ml-4 block">Nueva Compra de Productos</span>
       </h2>
-      <button mat-button class="text-am-base-background">REGRESAR</button>
+      <button mat-button (click)="back()" class="text-am-base-background">
+        REGRESAR
+      </button>
     </div>
   </div>
   <div class="-mt-14 p-6 pt-0 overflow-hidden flex flex-col md:flex-row gap-2">
@@ -28,6 +30,7 @@
             [control]="form.get('providerId')"
             [required]="true"
             [listOptions]="providerSelect"
+            [readonly]="viewDetailRead"
           ></app-select-autocomplete>
 
           <app-select-autocomplete
@@ -35,6 +38,7 @@
             [control]="form.get('warehouseId')"
             [required]="true"
             [listOptions]="warehouseSelect"
+            [readonly]="viewDetailRead"
           ></app-select-autocomplete>
         </div>
         <mat-form-field appearance="outline" class="w-full">
@@ -43,10 +47,11 @@
             matInput
             placeholder="Ingrese una Observación ..."
             formControlName="observation"
+            [readonly]="viewDetailRead"
           ></textarea>
         </mat-form-field>
 
-        <div class="flex justify-between">
+        <div class="flex justify-between" *ngIf="!viewDetailRead">
           <div
             @fadeInRight
             class="text-lg font-medium text-am-main-blue-dark ml-2"
@@ -61,7 +66,10 @@
           </app-search-box-multiple>
         </div>
         <br />
-        <div class="card h-full overflow-hidden flex-auto">
+        <div
+          class="card h-full overflow-hidden flex-auto"
+          *ngIf="!viewDetailRead"
+        >
           <app-list-table
             class="w-full border rounded-lg"
             (rowClick)="rowClick($event)"
@@ -146,7 +154,7 @@
                 <td class="px-6 py-4 font-semibold text-xs text-left">
                   {{ product.totalAmount | currency : "" : "" }}
                 </td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4" *ngIf="!viewDetailRead">
                   <div
                     class="flex justify-center items-center cursor-pointer p-1.5 w-fit rounded-full text-am-new-red-dark bg-am-new-red-light border-am-new-red-dark mb-1"
                   >
@@ -192,6 +200,8 @@
               class="bg-accent text-accent-contrast"
               mat-button
               [disabled]="form.invalid || cartDetails.length == 0"
+              (click)="purcharseSave()"
+              *ngIf="!viewDetailRead"
             >
               GUARDAR
             </button>

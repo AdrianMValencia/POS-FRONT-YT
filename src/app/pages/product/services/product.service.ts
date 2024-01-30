@@ -39,7 +39,14 @@ export class ProductService {
   }
 
   private transformProductData(response: BaseResponse): BaseResponse {
+    const badgeColor: Record<number, string> = {
+      0: "text-gray bg-gray-light",
+      1: "text-green bg-green-light",
+    };
+
     response.data.forEach((product: ProductResponse) => {
+      product.badgeColor =
+        badgeColor[product.state] || "text-gray bg-gray-light";
       product.icView = getIcon("icVisibility", "Ver stock actual", true);
       product.icEdit = getIcon("icEdit", "Editar Producto", true);
       product.icDelete = getIcon("icDelete", "Eliminar Producto", true);

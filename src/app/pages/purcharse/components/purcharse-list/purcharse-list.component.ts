@@ -7,6 +7,9 @@ import { PurcharseService } from "../../services/purcharse.service";
 import { componentSettings } from "./purcharse-list-config";
 import { DateRange, FiltersBox } from "@shared/models/search-options.interface";
 import { Router } from "@angular/router";
+import { RowClick } from "@shared/models/row-click.interface";
+import { PurcharseResponse } from "../../models/purcharse-response.interface";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "vex-purcharse-list",
@@ -67,6 +70,47 @@ export class PurcharseListComponent implements OnInit {
     }
 
     this.component.getInputs = str;
+  }
+
+  rowClick(rowClick: RowClick<PurcharseResponse>) {
+    let action = rowClick.action;
+    let purcharse = rowClick.row;
+
+    switch (action) {
+      case "viewDetail":
+        this.purcharseViewDetail(purcharse);
+        break;
+      case "cancel":
+        this.purcharseCancel(purcharse);
+        break;
+    }
+
+    return false;
+  }
+
+  purcharseViewDetail(purcharse: PurcharseResponse) {
+    this._router.navigate(["/proceso-compras/crear", purcharse.purcharseId]);
+  }
+
+  purcharseCancel(purcharse: PurcharseResponse) {
+    Swal.fire({
+      title: `Se anulará de forma permanente`,
+      text: "¿Realmente deseas anular la Compra?",
+      icon: "warning",
+      showCancelButton: true,
+      focusCancel: true,
+      confirmButtonColor: "rgb(210, 155, 253)",
+      cancelButtonColor: "rgb(79, 109, 253)",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      width: 430,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._purcharseService
+          .purcharseCancel(purcharse.purcharseId)
+          .subscribe(() => this.setGetInputsPurcharse(true));
+      }
+    });
   }
 
   setGetInputsPurcharse(refresh: boolean) {
