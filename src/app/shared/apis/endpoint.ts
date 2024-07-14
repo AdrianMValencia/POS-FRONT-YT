@@ -45,6 +45,13 @@ export const endpoint = {
   PURCHARSE_BY_ID: "Purcharse/",
   PURCHARSE_REGISTER: "Purcharse/Register/",
   PURCHARSE_CANCEL: "Purcharse/Cancel/",
+
+  // CLIENT MODULE
+  LIST_CLIENTS: "Client",
+  CLIENT_BY_ID: "Client/",
+  CLIENT_REGISTER: "Client/Register/",
+  CLIENT_EDIT: "Client/Edit/",
+  CLIENT_REMOVE: "Client/Remove/",
 };
 
 export const httpOptions = {

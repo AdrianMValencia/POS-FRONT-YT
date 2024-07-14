@@ -1,0 +1,73 @@
+<div class="w-full h-full flex flex-col">
+    <div class="px-gutter pt-1 pb-20 bg-primary flex-none">
+      <div class="flex items-center justify-between">
+        <h2
+          class="headline text-primary-contrast m-0 flex items-center w-full max-w-xxxl mr-6"
+        >
+          <ic-icon
+            @scaleIn
+            [icon]="component.icClient"
+            class="hidden sm:block"
+          ></ic-icon>
+          <span @fadeInRight class="ml-4 block">Gestión de Clientes</span>
+        </h2>
+        <div class="flex items-center justify-end w-full mt-5">
+          <div class="flex justify-between">
+            <app-filter-date-range-ymd
+              (rangeDate)="searchDateRange($event)"
+              [start]="component.filters.startDate"
+              [end]="component.filters.endDate"
+            ></app-filter-date-range-ymd>
+            <app-button-reset-filters
+              (buttonClick)="resetFilters()"
+            ></app-button-reset-filters>
+          </div>
+          <div class="flex justify-between ml-6">
+            <app-search-box-multiple
+              [searchOptions]="component.searchOptions"
+              (search)="search($event)"
+              [currentValue]="component.filters.textFilter"
+            >
+            </app-search-box-multiple>
+          </div>
+          <div>
+            <app-export-excel
+              [url]="getDownloadUrl"
+              [getInputs]="component.getInputs"
+              [filename]="component.filename"
+            >
+            </app-export-excel>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="-mt-14 pt-0 overflow-hidden flex">
+      <mat-drawer-container class="bg-transparent flex-auto flex">
+        <mat-drawer-content class="p-gutter pt-0 flex-auto flex items-start">
+          <app-menu
+            class="hidden sm:block mr-6"
+            [currentMenu]="component.getInputs.stateFilter"
+            [items]="component.menuItems"
+            [buttonShow]="true"
+            buttonLabel="AGREGAR"
+            (filterChange)="setMenu($event)"
+            (buttonClick)="openDialogRegister()"
+          >
+          </app-menu>
+  
+          <div class="card h-full overflow-hidden flex-auto">
+            <app-list-table
+              (rowClick)="rowClick($event)"
+              [service]="_clientService"
+              [columns]="component.tableColumns"
+              [sortBy]="component.initialSort"
+              [sortDir]="component.initialSortDir"
+              [getInputs]="component.getInputs"
+            >
+            </app-list-table>
+          </div>
+        </mat-drawer-content>
+      </mat-drawer-container>
+    </div>
+  </div>
+  

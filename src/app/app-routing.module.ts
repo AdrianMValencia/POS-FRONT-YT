@@ -49,6 +49,11 @@ const childrenRoutes: VexRoutes = [
       ),
   },
   {
+    path: "clientes",
+    loadChildren: () => import("./pages/client/client.module").then
+    (m => m.ClientModule)
+  },
+  {
     path: "**",
     component: NotFoundComponent,
   },

@@ -26,12 +26,16 @@ import icCancel from "@iconify/icons-ic/twotone-block";
 import icAdd from "@iconify/icons-ic/twotone-add-shopping-cart";
 import icMin from "@iconify/icons-ic/twotone-remove";
 import icAddDetail from "@iconify/icons-ic/twotone-add";
+import icClient from "@iconify/icons-ic/twotone-supervisor-account";
 
 @Injectable({
   providedIn: "root",
 })
 export class IconsService {
   getIcon(icon: string) {
+    if(icon == "icClient"){
+       return icClient; 
+    }
     if (icon == "icMin") {
       return icMin;
     }

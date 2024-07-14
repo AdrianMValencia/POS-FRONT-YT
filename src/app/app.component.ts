@@ -107,6 +107,12 @@ export class AppComponent {
         icon: IconsService.prototype.getIcon("icProvider"),
       },
       {
+        type: "link",
+        label: "Clientes",
+        route: "clientes",
+        icon: IconsService.prototype.getIcon("icClient"),
+      },
+      {
         type: "dropdown",
         label: "Procesos",
         icon: IconsService.prototype.getIcon("icSales"),
