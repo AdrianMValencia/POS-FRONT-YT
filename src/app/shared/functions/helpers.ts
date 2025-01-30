@@ -70,6 +70,14 @@ export function getIcon(
     if (["icAdd"].includes(iconName)) {
       iconObj.css = generalCss + COLORS_BADGE.green;
     }
+
+    if (["icInvoice"].includes(iconName)) {
+      iconObj.css = generalCss + COLORS_BADGE.green;
+    }
+
+    if (["icTicket"].includes(iconName)) {
+      iconObj.css = generalCss + COLORS_BADGE.main;
+    }
   }
 
   return iconObj;

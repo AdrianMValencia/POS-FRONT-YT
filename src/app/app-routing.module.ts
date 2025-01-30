@@ -50,8 +50,13 @@ const childrenRoutes: VexRoutes = [
   },
   {
     path: "clientes",
-    loadChildren: () => import("./pages/client/client.module").then
-    (m => m.ClientModule)
+    loadChildren: () =>
+      import("./pages/client/client.module").then((m) => m.ClientModule),
+  },
+  {
+    path: "proceso-ventas",
+    loadChildren: () =>
+      import("./pages/sale/sale.module").then((m) => m.SaleModule),
   },
   {
     path: "**",

@@ -52,6 +52,9 @@ export const endpoint = {
   CLIENT_REGISTER: "Client/Register/",
   CLIENT_EDIT: "Client/Edit/",
   CLIENT_REMOVE: "Client/Remove/",
+
+  // SALE MODULE
+  LIST_SALES: "Sale",
 };
 
 export const httpOptions = {

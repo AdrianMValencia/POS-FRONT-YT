@@ -14,7 +14,7 @@ import icLabel from "@iconify/icons-ic/twotone-label";
 import icProvider from "@iconify/icons-ic/twotone-group";
 import icDashboard from "@iconify/icons-ic/twotone-dashboard";
 import icCategory from "@iconify/icons-ic/twotone-category";
-import icCloudDownload from "@iconify/icons-ic/twotone-cloud-download";
+import { default as icCloudDownload, default as icInvoice, default as icTicket } from "@iconify/icons-ic/twotone-cloud-download";
 import icToday from "@iconify/icons-ic/twotone-today";
 import icRefresh from "@iconify/icons-ic/twotone-restart-alt";
 import icWarehouse from "@iconify/icons-ic/twotone-widgets";
@@ -33,6 +33,12 @@ import icClient from "@iconify/icons-ic/twotone-supervisor-account";
 })
 export class IconsService {
   getIcon(icon: string) {
+    if (icon == 'icTicket') {
+      return icTicket;
+    }
+    if (icon == 'icInvoice') {
+      return icInvoice;
+    }
     if(icon == "icClient"){
        return icClient; 
     }
