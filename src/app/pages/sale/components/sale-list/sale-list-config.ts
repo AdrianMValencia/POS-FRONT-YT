@@ -1,7 +1,7 @@
 import { TableColumns } from "@shared/models/list-table.interface";
 import { SearchOptions } from "@shared/models/search-options.interface";
 import { GenericValidators } from "@shared/validators/generic-validators";
-import { SaleResponse } from "../../models/sale-response.interface";
+import { ProductDetailsResponse, SaleResponse } from "../../models/sale-response.interface";
 import { IconsService } from "@shared/services/icons.service";
 
 const searchOptions: SearchOptions[] = [
@@ -11,6 +11,25 @@ const searchOptions: SearchOptions[] = [
     placeholder: "Buscar por comprobante",
     validation: [GenericValidators.alphanumeric],
     validation_desc: "Sólo se permite letras y/o números en esta búsqueda.",
+    icon: "icName",
+  },
+];
+
+const searchOptionsProducts: SearchOptions[] = [
+  {
+    label: "Código",
+    value: 1,
+    placeholder: "Buscar por Código",
+    validation: [GenericValidators.alphanumeric],
+    validation_desc: "Sólo se permite letras y/o números en esta búsqueda.",
+    icon: "icName",
+  },
+  {
+    label: "Nombre",
+    value: 2,
+    placeholder: "Buscar por Nombre",
+    validation: [GenericValidators.defaultName],
+    validation_desc: "Sólo se permite letras en esta búsqueda.",
     icon: "icName",
   },
 ];
@@ -126,6 +145,101 @@ const tableColumns: TableColumns<SaleResponse>[] = [
   },
 ];
 
+const tableColumnsProducts: TableColumns<ProductDetailsResponse>[] = [
+  {
+    label: "",
+    cssLabel: ["font-bold", "text-xxs"],
+    property: "image",
+    cssProperty: ["font-semibold", "text-xs", "text-left"],
+    type: "image",
+    sticky: false,
+    sort: true,
+    sortProperty: "image",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "CÓDIGO",
+    cssLabel: ["font-bold", "text-xxs"],
+    property: "code",
+    cssProperty: ["font-semibold", "text-xs", "text-left"],
+    type: "textUppercase",
+    sticky: false,
+    sort: true,
+    sortProperty: "code",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "NOMBRE",
+    cssLabel: ["font-bold", "text-xxs"],
+    property: "name",
+    cssProperty: ["font-semibold", "text-xs", "text-left"],
+    subProperty: "category",
+    cssSubProperty: ["text-xxs", "text-am-gray", "uppercase", "text-left"],
+    type: "text",
+    sticky: false,
+    sort: true,
+    sortProperty: "name",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "CANTIDAD",
+    cssLabel: ["font-bold", "text-xxs"],
+    property: "quantity",
+    cssProperty: ["font-semibold", "text-xs", "text-left"],
+    // type: "quantitySale",
+    type: "number",
+    sticky: false,
+    sort: true,
+    visible: true,
+  },
+  {
+    label: "PRECIO U.",
+    cssLabel: ["font-bold", "text-xxs"],
+    property: "unitSalePrice",
+    cssProperty: ["font-semibold", "text-xs", "text-left"],
+    // type: "unitSalePrice",
+    type: "number",
+    sticky: false,
+    sort: true,
+    visible: true,
+  },
+  {
+    label: "STOCK ACTUAL",
+    cssLabel: ["font-bold", "text-xxs"],
+    property: "currentStock",
+    cssProperty: ["font-semibold", "text-xs", "text-left"],
+    type: "number",
+    sticky: false,
+    sort: true,
+    visible: true,
+  },
+  {
+    label: "TOTAL",
+    cssLabel: ["font-bold", "text-xxs"],
+    property: "totalAmount",
+    cssProperty: ["font-semibold", "text-xs", "text-left"],
+    type: "totalAmount",
+    sticky: false,
+    sort: true,
+    visible: true,
+  },
+  {
+    label: "",
+    cssLabel: [],
+    property: "icAdd",
+    cssProperty: [],
+    type: "icon",
+    action: "addDetail",
+    sticky: false,
+    sort: false,
+    visible: true,
+    download: false,
+  },
+];
+
 const filters = {
   numFilter: 0,
   textFilter: "",
@@ -147,7 +261,9 @@ const getInputs: string = "";
 export const componentSettings = {
   icSale: IconsService.prototype.getIcon("icSales"),
   tableColumns,
+  tableColumnsProducts,
   searchOptions,
+  searchOptionsProducts,
   initialSort: "Id",
   initialSortDir: "desc",
   filters,

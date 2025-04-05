@@ -55,6 +55,9 @@ export const endpoint = {
 
   // SALE MODULE
   LIST_SALES: "Sale",
+  LIST_SELECT_VOUCHER_DOCUMENT_TYPE: "VoucherDocumentType/Select",
+  LIST_SELECT_CLIENTS: "Client/Select",
+  PRODUCT_STOCK_WAREHOUSE_ID: 'Sale/ProductStockByWarehouse'
 };
 
 export const httpOptions = {

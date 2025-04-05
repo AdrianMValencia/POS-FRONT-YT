@@ -8,6 +8,7 @@
       [matAutocomplete]="optionAutocomplete"
       autocomplete="on"
       [readonly]="readonly"
+      (ngModelChange)="onOptionSelected($event)"
     />
     <ng-container>
       <button @scaleInOut (click)="control.reset()" class="mr-4" type="button">

@@ -1,1 +1,103 @@
-<p>sale-create works!</p>
+<div class="w-full h-full flex flex-col">
+  <div class="px-gutter pt-6 pb-20 bg-primary flex-none">
+    <div class="flex items-center justify-between">
+      <h2
+        class="headline text-primary-contrast m-0 flex items-center w-full max-w-xxxl mr-6"
+      >
+        <ic-icon @scaleIn [icIcon]="componentSaleDetail.icSale"></ic-icon>
+        <span @fadeInRight class="ml-4 block">Nueva Venta de Productos</span>
+      </h2>
+      <button mat-button (click)="back()" class="text-am-base-background">
+        REGRESAR
+      </button>
+    </div>
+  </div>
+
+  <div class="-mt-14 p-6 pt-0 overflow-hidden flex flex-col md:flex-row gap-2">
+    <form class="w-full md:w-6/12" [formGroup]="form">
+      <div class="bg-white rounded-lg p-4 shadow">
+        <div class="flex items-center">
+          <div
+            @fadeInRight
+            class="text-lg font-medium text-am-main-blue-dark ml-2"
+          >
+            Nueva Venta
+          </div>
+        </div>
+        <br />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <app-select-autocomplete
+            label="Tipo de comprobante"
+            [control]="form.get('voucherDocumentTypeId')"
+            [required]="true"
+            [listOptions]="voucherDocumentTypeSelect"
+            [readonly]="viewDetailRead"
+          ></app-select-autocomplete>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>N° Comprobante</mat-label>
+            <input
+              matInput
+              formControlName="voucherNumber"
+              [readonly]="viewDetailRead"
+            />
+            <mat-error *ngIf="form.get('voucherNumber').hasError('required')">
+              Campo N° Comprobante es requerido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <app-select-autocomplete
+            label="Clientes"
+            [control]="form.get('clientId')"
+            [required]="true"
+            [listOptions]="clientSelect"
+            [readonly]="viewDetailRead"
+          ></app-select-autocomplete>
+
+          <app-select-autocomplete
+            label="Almacenes"
+            [control]="form.get('warehouseId')"
+            [required]="true"
+            [listOptions]="warehouseSelect"
+            [readonly]="viewDetailRead"
+            (itemSelected)="onItemSelected($event)"
+          ></app-select-autocomplete>
+        </div>
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Observación</mat-label>
+            <textarea 
+                matInput 
+                placeholder="Ingrese una Observación..." 
+                formControlName="observation"
+                [readonly]="viewDetailRead"></textarea>
+        </mat-form-field>
+        <div class="flex justify-between" *ngIf="!viewDetailRead">
+            <div @fadeInRight class="text-lg font-medium text-am-main-blue-dark ml-2">
+                Productos
+            </div>
+            <app-search-box-multiple
+                [searchOptions]="componentSaleDetail.searchOptionsProducts"
+                (search)="search($event)"
+                [currentValue]="componentSaleDetail.filters.textFilter"
+            ></app-search-box-multiple>
+        </div>
+        <br />
+        <div
+          class="card h-full overflow-hidden flex-auto"
+          *ngIf="!viewDetailRead"
+        >
+          <app-list-table
+            class="w-full border rounded-lg"
+            [service]="_saleDetailService"
+            [columns]="componentSaleDetail.tableColumnsProducts"
+            [numRecords]="numRecordsProducts"
+            [sortBy]="componentSaleDetail.initialSort"
+            [sortDir]="componentSaleDetail.initialSortDir"
+            [getInputs]="componentSaleDetail.getInputs"
+          ></app-list-table>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

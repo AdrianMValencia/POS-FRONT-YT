@@ -11,3 +11,16 @@ export interface SaleResponse {
     icInvoice: object;
     icCancel: object;
 }
+
+export interface ProductDetailsResponse {
+    productId: number;
+    image: string;
+    code: string;
+    name: string;
+    category: string;
+    quantity: number;
+    unitSalePrice: number;
+    currentStock: number;
+    totalAmount: number;
+    icAdd: object;
+  }
