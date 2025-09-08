@@ -8,6 +8,7 @@ import { map } from "rxjs/operators";
 import { environment as env } from "src/environments/environment";
 import { SaleResponse } from "../models/sale-response.interface";
 import { getIcon } from "@shared/functions/helpers";
+import { SaleRequest } from "../models/sale-request.interface";
 
 @Injectable({
   providedIn: "root",
@@ -51,5 +52,10 @@ export class SaleService {
     });
 
     return response;
+  }
+
+  saleRegister(sale: SaleRequest): Observable<BaseResponse> {
+    const requestUrl = `${env.api}${endpoint.SALE_REGISTER}`;
+    return this._http.post<BaseResponse>(requestUrl, sale);
   }
 }

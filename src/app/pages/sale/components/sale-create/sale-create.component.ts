@@ -10,6 +10,12 @@ import { ClientSelectService } from "@shared/services/client-select.service";
 import { WarehouseSelectService } from "@shared/services/warehouse-select.service";
 import { FiltersBox } from "@shared/models/search-options.interface";
 import { SaleDetailService } from "../../services/sale-detail.service";
+import { RowClick } from "@shared/models/row-click.interface";
+import { ProductDetailsResponse } from "../../models/sale-response.interface";
+import { IconsService } from "@shared/services/icons.service";
+import { AlertService } from "@shared/services/alert.service";
+import { SaleRequest } from "../../models/sale-request.interface";
+import { SaleService } from "../../services/sale.service";
 
 @Component({
   selector: "vex-sale-create",
@@ -28,6 +34,14 @@ export class SaleCreateComponent implements OnInit {
   warehouseSelect: SelectAutoComplete[];
   selectedWarehouseId: number;
 
+  icRemove = IconsService.prototype.getIcon("icDelete");
+
+  cartDetails: any | ProductDetailsResponse[] = [];
+
+  subtotal: number = 0;
+  igv: number = 0;
+  total: number = 0;
+
   initForm(): void {
     this.form = this._fb.group({
       voucherDocumentTypeId: ["", Validators.required],
@@ -38,12 +52,16 @@ export class SaleCreateComponent implements OnInit {
     });
   }
 
-  constructor(private _route: Router, 
-      private _fb: FormBuilder,
-      private _voucherDocumentTypeSelectService: VoucherDocumentTypeSelectService,
-      private _clientSelectService: ClientSelectService,
-      private _warehouseSelectService: WarehouseSelectService,
-      public _saleDetailService: SaleDetailService) {
+  constructor(
+    private _route: Router,
+    private _fb: FormBuilder,
+    private _voucherDocumentTypeSelectService: VoucherDocumentTypeSelectService,
+    private _clientSelectService: ClientSelectService,
+    private _warehouseSelectService: WarehouseSelectService,
+    public _saleDetailService: SaleDetailService,
+    private _alert: AlertService,
+    private _saleService: SaleService
+  ) {
     this.componentSaleDetail = componentSettings;
   }
 
@@ -60,26 +78,22 @@ export class SaleCreateComponent implements OnInit {
 
   listSelectVoucherDocumentTypes(): void {
     this._voucherDocumentTypeSelectService
-    .listSelectVoucherDocumentType()
-    .subscribe((resp) => {
-      this.voucherDocumentTypeSelect = resp;
-    })
+      .listSelectVoucherDocumentType()
+      .subscribe((resp) => {
+        this.voucherDocumentTypeSelect = resp;
+      });
   }
 
   listSelectClients(): void {
-    this._clientSelectService
-    .listSelectClients()
-    .subscribe((resp) => {
+    this._clientSelectService.listSelectClients().subscribe((resp) => {
       this.clientSelect = resp;
-    })
+    });
   }
 
   listSelectWarehouses(): void {
-    this._warehouseSelectService
-    .listSelectWarehouses()
-    .subscribe((resp) => {
+    this._warehouseSelectService.listSelectWarehouses().subscribe((resp) => {
       this.warehouseSelect = resp;
-    })
+    });
   }
 
   search(data: FiltersBox) {
@@ -103,5 +117,132 @@ export class SaleCreateComponent implements OnInit {
   onItemSelected(id: number): void {
     this.selectedWarehouseId = id;
     this.formatGetInputs();
+  }
+
+  rowClick(rowClick: RowClick<ProductDetailsResponse>) {
+    let action = rowClick.action;
+    let products = rowClick.row;
+
+    switch (action) {
+      case "addDetail":
+        this.addDetail(products);
+        break;
+    }
+
+    return false;
+  }
+
+  addDetail = (products: ProductDetailsResponse) => {
+    if (products.totalAmount <= 0) {
+      return;
+    }
+
+    const productCopy = { ...products };
+
+    const existingProduct = this.cartDetails.find(
+      (item) => item.code === productCopy.code
+    );
+
+    const validateResult = existingProduct
+      ? this.validateStock(existingProduct, productCopy.quantity)
+      : this.validateStock(productCopy, null);
+
+    if (validateResult) {
+      this._alert.warn(
+        "Stock agotado",
+        "La cantidad seleccionada supera el stock disponible"
+      );
+
+      return;
+    }
+
+    if (existingProduct) {
+      existingProduct.quantity += productCopy.quantity;
+      existingProduct.totalAmount =
+        existingProduct.quantity * existingProduct.unitSalePrice;
+    } else {
+      this.cartDetails.push(productCopy);
+    }
+
+    this.calculateSubtotal();
+    this.calculateIgv();
+    this.calculateTotal();
+  };
+
+  validateStock(
+    existingProduct: ProductDetailsResponse,
+    quantityToAdd: number
+  ): boolean {
+    if (
+      existingProduct.quantity + quantityToAdd >
+      existingProduct.currentStock
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  calculateSubtotal() {
+    this.subtotal = this.cartDetails.reduce(
+      (acc, product) => acc + product.quantity * product.unitSalePrice,
+      0
+    );
+  }
+
+  calculateIgv() {
+    this.igv = this.subtotal * 0.18;
+  }
+
+  calculateTotal() {
+    this.total = this.subtotal + this.igv;
+  }
+
+  removeFromCart(product: ProductDetailsResponse) {
+    const index = this.cartDetails.indexOf(product);
+
+    if (index !== -1) {
+      this.cartDetails.splice(index, 1);
+    }
+
+    this.calculateSubtotal();
+    this.calculateIgv();
+    this.calculateTotal();
+  }
+
+  saleSave(): void {
+    if (this.form.invalid) {
+      return Object.values(this.form.controls).forEach((controls) => {
+        controls.markAllAsTouched();
+      });
+    }
+
+    const sale: SaleRequest = {
+      voucherNumber: this.form.value.voucherNumber,
+      observation: this.form.value.observation,
+      voucherDocumentTypeId: this.form.value.voucherDocumentTypeId,
+      warehouseId: this.form.value.warehouseId,
+      clientId: this.form.value.clientId,
+      subTotal: this.subtotal,
+      igv: this.igv,
+      totalAmount: this.total,
+      saleDetails: this.cartDetails.map((product: ProductDetailsResponse) => {
+        return {
+          productId: product.productId,
+          quantity: product.quantity,
+          unitSalePrice: product.unitSalePrice,
+          total: product.totalAmount,
+        };
+      }),
+    };
+
+    this._saleService.saleRegister(sale).subscribe((resp) => {
+      if (resp.isSuccess) {
+        this._alert.success("Excelente", resp.message);
+        this._route.navigate(["proceso-ventas"]);
+      } else {
+        this._alert.warn("Atención", resp.message);
+      }
+    });
   }
 }

@@ -209,4 +209,27 @@ export class ListTableComponent<T> implements OnInit, AfterViewInit, OnChanges {
       row.totalAmount = "0.00";
     }
   }
+
+  substractQuantitySale(row: any) {
+    if (row.quantity > 0) {
+      row.quantity--;
+    }
+    this.calculateTotalAmountSale(row);
+  }
+
+  increaseQuantitySale(row: any) {
+    row.quantity++;
+    this.calculateTotalAmountSale(row);
+  }
+
+  calculateTotalAmountSale(row: any) {
+    const quantity = row.quantity;
+    const unitSalePrice = row.unitSalePrice;
+
+    if (quantity || unitSalePrice) {
+      row.totalAmount = (quantity * unitSalePrice).toFixed(2);
+    } else {
+      row.totalAmount = "0.00";
+    }
+  }
 }

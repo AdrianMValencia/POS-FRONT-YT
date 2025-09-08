@@ -305,6 +305,79 @@
         </ng-container>
 
         <ng-container
+          *ngIf="column.type === 'quantitySale'"
+          [matColumnDef]="column.property"
+          [sticky]="column.sticky"
+        >
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [mat-sort-header]="column.sortProperty"
+            [disabled]="!column.sort"
+            [ngClass]="column.cssLabel"
+          >
+            {{ column.label }}
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <div class="flex gap-2 items-center">
+              <button
+                type="button"
+                mat-icon-button
+                color="primary"
+                (click)="substractQuantitySale(row)"
+                class="small-button"
+              >
+                <mat-icon
+                  [icIcon]="icMin"
+                  class="flex justify-center items-center p-1.5 rounded-full text-am-main-blue-dark bg-am-main-blue-light border-am-main-blue-dark"
+                ></mat-icon>
+              </button>
+              <label class="text-md" [ngClass]="column.cssProperty">
+                {{ row[column.property] }}
+              </label>
+              <button
+                type="button"
+                mat-icon-button
+                color="primary"
+                (click)="increaseQuantitySale(row)"
+                class="small-button"
+              >
+                <mat-icon
+                  [icIcon]="icAdd"
+                  class="flex justify-center items-center p-1.5 rounded-full text-am-main-blue-dark bg-am-main-blue-light border-am-main-blue-dark"
+                ></mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container
+          *ngIf="column.type === 'unitSalePrice'"
+          [matColumnDef]="column.property"
+          [sticky]="column.sticky"
+        >
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            [mat-sort-header]="column.sortProperty"
+            [disabled]="!column.sort"
+            [ngClass]="column.cssLabel"
+          >
+            {{ column.label }}
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <div *ngIf="!row[column.subProperty]">
+              <p
+                [ngClass]="column.cssProperty"
+                (ngModelChange)="calculateTotalAmountSale(row)"
+              >
+                {{ row[column.property] | currency : "" : "" }}
+              </p>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container
           *ngIf="column.type === 'totalAmount'"
           [matColumnDef]="column.property"
           [sticky]="column.sticky"
