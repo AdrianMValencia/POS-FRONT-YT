@@ -6,7 +6,10 @@ import { AlertService } from "@shared/services/alert.service";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { environment as env } from "src/environments/environment";
-import { SaleResponse } from "../models/sale-response.interface";
+import {
+  SaleByIdResponse,
+  SaleResponse,
+} from "../models/sale-response.interface";
 import { getIcon } from "@shared/functions/helpers";
 import { SaleRequest } from "../models/sale-request.interface";
 
@@ -54,8 +57,33 @@ export class SaleService {
     return response;
   }
 
+  saleById(saleId: number): Observable<SaleByIdResponse> {
+    const requestUrl = `${env.api}${endpoint.SALE_BY_ID}${saleId}`;
+    return this._http.get(requestUrl).pipe(
+      map((resp: BaseResponse) => {
+        return resp.data;
+      })
+    );
+  }
+
   saleRegister(sale: SaleRequest): Observable<BaseResponse> {
     const requestUrl = `${env.api}${endpoint.SALE_REGISTER}`;
     return this._http.post<BaseResponse>(requestUrl, sale);
+  }
+
+  saleCancel(saleId: number): Observable<void> {
+    const requestUrl = `${env.api}${endpoint.SALE_CANCEL}${saleId}`;
+    return this._http.put(requestUrl, "").pipe(
+      map((resp: BaseResponse) => {
+        if (resp.isSuccess) {
+          this._alertService.success("Excelente", resp.message);
+        }
+      })
+    );
+  }
+
+  saleExportToPdfSaleDetail(saleId: number): Observable<Blob> {
+    const requestUrl = `${env.api}${endpoint.SALE_EXPORT_PDF}${saleId}`;
+    return this._http.get(requestUrl, { responseType: "blob"});
   }
 }

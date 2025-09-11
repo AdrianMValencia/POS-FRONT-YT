@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { componentSettings } from "../sale-list/sale-list-config";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { SelectAutoComplete } from "@shared/models/select-autocomplete.interface";
 import { VoucherDocumentTypeSelectService } from "@shared/services/voucher-document-type-select.service";
@@ -42,6 +42,8 @@ export class SaleCreateComponent implements OnInit {
   igv: number = 0;
   total: number = 0;
 
+  saleId: number = 0;
+
   initForm(): void {
     this.form = this._fb.group({
       voucherDocumentTypeId: ["", Validators.required],
@@ -60,9 +62,14 @@ export class SaleCreateComponent implements OnInit {
     private _warehouseSelectService: WarehouseSelectService,
     public _saleDetailService: SaleDetailService,
     private _alert: AlertService,
-    private _saleService: SaleService
+    private _saleService: SaleService,
+    private _activatedRoute: ActivatedRoute
   ) {
     this.componentSaleDetail = componentSettings;
+
+    this._activatedRoute.params.subscribe((params) => {
+      this.saleId = params["saleId"];
+    });
   }
 
   ngOnInit(): void {
@@ -70,6 +77,28 @@ export class SaleCreateComponent implements OnInit {
     this.listSelectVoucherDocumentTypes();
     this.listSelectClients();
     this.listSelectWarehouses();
+
+    if (this.saleId > 0) {
+      this.saleById(this.saleId);
+      this.viewDetailRead = true;
+    }
+  }
+
+  saleById(saleId: number) {
+    this._saleService.saleById(saleId).subscribe((resp) => {
+      this.form.patchValue({
+        voucherDocumentTypeId: resp.voucherDocumentTypeId,
+        voucherNumber: resp.voucherNumber,
+        clientId: resp.clientId,
+        warehouseId: resp.warehouseId,
+        observation: resp.observation,
+      });
+
+      (this.cartDetails = resp.saleDetails),
+        (this.subtotal = resp.subTotal),
+        (this.igv = resp.igv),
+        (this.total = resp.totalAmount);
+    });
   }
 
   back() {

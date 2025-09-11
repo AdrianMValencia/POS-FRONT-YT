@@ -9,6 +9,7 @@ import { componentSettings } from "./sale-list-config";
 import { DateRange, FiltersBox } from "@shared/models/search-options.interface";
 import { RowClick } from "@shared/models/row-click.interface";
 import { SaleResponse } from "../../models/sale-response.interface";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "vex-sale-list",
@@ -75,7 +76,23 @@ export class SaleListComponent implements OnInit {
     let action = rowClick.action;
     let sale = rowClick.row;
 
+    switch (action) {
+      case "viewDetail":
+        this.saleViewDetail(sale);
+        break;
+      case "cancel":
+        this.saleCancel(sale);
+        break;
+      case "exportInvoice":
+        this.saleExportToPdfSaleDetail(sale);
+        break;
+    }
+
     return false;
+  }
+
+  saleViewDetail(sale: SaleResponse) {
+    this._router.navigate(["/proceso-ventas/crear", sale.saleId]);
   }
 
   setGetInputsSale(refresh: boolean) {
@@ -89,5 +106,34 @@ export class SaleListComponent implements OnInit {
 
   newSale() {
     this._router.navigate(["/proceso-ventas/crear"]);
+  }
+
+  saleCancel(saleData: SaleResponse) {
+    Swal.fire({
+      title: `Se anulará de forma permanente`,
+      text: "¿Realmente deseas anular la Venta?",
+      icon: "warning",
+      showCancelButton: true,
+      focusCancel: true,
+      confirmButtonColor: "rgb(210, 155, 253)",
+      cancelButtonColor: "rgb(79, 109, 253)",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      width: 430,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._saleService
+          .saleCancel(saleData.saleId)
+          .subscribe(() => this.setGetInputsSale(true));
+      }
+    });
+  }
+
+  saleExportToPdfSaleDetail(saleData: SaleResponse) {
+    this._saleService.saleExportToPdfSaleDetail(saleData.saleId).subscribe((response) => {
+      const blob = new Blob([response], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
+    })
   }
 }

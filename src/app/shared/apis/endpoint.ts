@@ -58,7 +58,10 @@ export const endpoint = {
   LIST_SELECT_VOUCHER_DOCUMENT_TYPE: "VoucherDocumentType/Select",
   LIST_SELECT_CLIENTS: "Client/Select",
   PRODUCT_STOCK_WAREHOUSE_ID: 'Sale/ProductStockByWarehouse',
-  SALE_REGISTER: 'Sale/Register/'
+  SALE_REGISTER: 'Sale/Register/',
+  SALE_BY_ID: 'Sale/',
+  SALE_CANCEL: 'Sale/Cancel/',
+  SALE_EXPORT_PDF: 'Sale/ExportToPdfSaleDetail/'
 };
 
 export const httpOptions = {
