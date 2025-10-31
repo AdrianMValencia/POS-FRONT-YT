@@ -61,7 +61,14 @@ export const endpoint = {
   SALE_REGISTER: 'Sale/Register/',
   SALE_BY_ID: 'Sale/',
   SALE_CANCEL: 'Sale/Cancel/',
-  SALE_EXPORT_PDF: 'Sale/ExportToPdfSaleDetail/'
+  SALE_EXPORT_PDF: 'Sale/ExportToPdfSaleDetail/',
+
+  // USER MODULE
+  LIST_USERS: "User",
+  USER_BY_ID: "User/",
+  USER_REGISTER: "User/Register/",
+  USER_EDIT: "User/Edit/",
+  USER_REMOVE: "User/Remove/",
 };
 
 export const httpOptions = {

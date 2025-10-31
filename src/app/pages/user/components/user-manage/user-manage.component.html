@@ -1,0 +1,75 @@
+<form (ngSubmit)="userSave()" [formGroup]="form">
+    <div mat-dialog-title class="flex justify-between">
+        <h2 class="headline m-0 text-xl text-accent">
+            <strong>{{
+                data.mode == "register"
+                ? "Registrar Nuevo Usuario"
+                : "Actualizar Usuario"
+                }}</strong>
+        </h2>
+        <button class="text-secondary" mat-dialog-close mat-icon-button>
+            <mat-icon [icIcon]="icClose"></mat-icon>
+        </button>
+    </div>
+    <mat-dialog-content>
+        <app-img-selector [urlCurrentImg]="this.form.get('image').value"
+            (selectedImage)="selectedImage($event)"></app-img-selector>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Usuario</mat-label>
+            <input matInput formControlName="userName" />
+            <mat-error *ngIf="form.get('userName').hasError('required')">
+                Campo Usuario es requerido.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full" *ngIf="data.mode == 'register'">
+            <mat-label>Contraseña</mat-label>
+            <input [type]="inputType" matInput formControlName="password" />
+            <button (click)="toggleVisibility()" mat-icon-button matSuffix
+                matTooltip="{{ !visible ? 'Ver contraseña' : 'Ocultar contraseña' }}" type="button">
+                <mat-icon *ngIf="visible" [icIcon]="icVisibility"></mat-icon>
+                <mat-icon *ngIf="!visible" [icIcon]="icVisibilityOff"></mat-icon>
+            </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+            <mat-error *ngIf="form.get('email').hasError('required')">
+                Campo Email es requerido.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Tipo Autenticación</mat-label>
+            <mat-select formControlName="authType">
+                <mat-option *ngFor="let auth of authTypes" [value]="auth.value">
+                    {{ auth.label }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('authType').hasError('required')">
+                Campo Tipo Autenticación es requerido.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="state">
+                <mat-option *ngFor="let state of states" [value]="state.value">
+                    {{ state.label }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('state').hasError('required')">
+                Campo Estado es requerido.
+            </mat-error>
+        </mat-form-field>
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>CANCELAR</button>
+        <button type="submit" mat-button class="bg-accent text-accent-contrast" [disabled]="form.invalid">
+            GUARDAR
+        </button>
+    </mat-dialog-actions>
+</form>

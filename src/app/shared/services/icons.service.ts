@@ -27,6 +27,8 @@ import icAdd from "@iconify/icons-ic/twotone-add-shopping-cart";
 import icMin from "@iconify/icons-ic/twotone-remove";
 import icAddDetail from "@iconify/icons-ic/twotone-add";
 import icClient from "@iconify/icons-ic/twotone-supervisor-account";
+import icSettings from "@iconify/icons-ic/twotone-settings";
+import icUser from "@iconify/icons-ic/twotone-person";
 
 @Injectable({
   providedIn: "root",
@@ -35,6 +37,12 @@ export class IconsService {
   getIcon(icon: string) {
     if (icon == 'icTicket') {
       return icTicket;
+    }
+    if (icon == 'icSettings') {
+      return icSettings;
+    }
+    if (icon == 'icUser') {
+      return icUser;
     }
     if (icon == 'icInvoice') {
       return icInvoice;

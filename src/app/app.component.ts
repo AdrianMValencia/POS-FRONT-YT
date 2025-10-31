@@ -129,6 +129,28 @@ export class AppComponent {
           },
         ],
       },
+      {
+        type: "dropdown",
+        label: "Configuración",
+        icon: IconsService.prototype.getIcon("icSettings"),
+        children: [
+          {
+            type: "link",
+            label: "Usuarios",
+            route: "usuarios",
+          },
+          {
+            type: "link",
+            label: "Roles",
+            route: "roles",
+          },
+          {
+            type: "link",
+            label: "Role de usuarios",
+            route: "rol-usuarios",
+          },
+        ],
+      },
     ];
   }
 }

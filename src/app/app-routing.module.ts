@@ -59,6 +59,11 @@ const childrenRoutes: VexRoutes = [
       import("./pages/sale/sale.module").then((m) => m.SaleModule),
   },
   {
+    path: "usuarios",
+    loadChildren: () =>
+      import("./pages/user/user.module").then((m) => m.UserModule),
+  },
+  {
     path: "**",
     component: NotFoundComponent,
   },
@@ -97,4 +102,4 @@ const routes: VexRoutes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
