@@ -29,12 +29,27 @@ import icAddDetail from "@iconify/icons-ic/twotone-add";
 import icClient from "@iconify/icons-ic/twotone-supervisor-account";
 import icSettings from "@iconify/icons-ic/twotone-settings";
 import icUser from "@iconify/icons-ic/twotone-person";
-
+import icRole from "@iconify/icons-ic/twotone-admin-panel-settings";
+import icCheckBox from "@iconify/icons-ic/twotone-check-box";
+import icCheckBoxOutlineBlank from "@iconify/icons-ic/twotone-check-box-outline-blank";
+import icUserRole from "@iconify/icons-ic/twotone-supervised-user-circle";
 @Injectable({
   providedIn: "root",
 })
 export class IconsService {
   getIcon(icon: string) {
+    if (icon == 'icUserRole') {
+      return icUserRole;
+    }
+    if (icon == 'icCheckBox') {
+      return icCheckBox;
+    }
+    if (icon == 'icCheckBoxOutlineBlank') {
+      return icCheckBoxOutlineBlank;
+    }
+    if (icon == 'icRole') {
+      return icRole;
+    }
     if (icon == 'icTicket') {
       return icTicket;
     }

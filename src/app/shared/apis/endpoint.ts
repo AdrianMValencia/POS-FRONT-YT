@@ -69,6 +69,15 @@ export const endpoint = {
   USER_REGISTER: "User/Register/",
   USER_EDIT: "User/Edit/",
   USER_REMOVE: "User/Remove/",
+
+  // ROLE MODULE
+  LIST_ROLES: "Role",
+  LIST_SELECT_ROLES: "Role/Select",
+  ROLE_BY_ID: "Role/",
+  ROLE_REGISTER: "Role/Register/",
+  ROLE_EDIT: "Role/Edit/",
+  ROLE_REMOVE: "Role/Remove/",
+  PERMISSIONS_BY_ROLE_ID: "Permission/PermissionByRoleId/",
 };
 
 export const httpOptions = {

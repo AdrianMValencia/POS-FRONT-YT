@@ -64,6 +64,11 @@ const childrenRoutes: VexRoutes = [
       import("./pages/user/user.module").then((m) => m.UserModule),
   },
   {
+    path: 'roles',
+    loadChildren: () =>
+      import('./pages/role/role.module').then(m => m.RoleModule)
+  },
+  {
     path: "**",
     component: NotFoundComponent,
   },

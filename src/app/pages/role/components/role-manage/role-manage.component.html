@@ -1,0 +1,106 @@
+<div class="w-full h-full flex flex-col">
+  <div class="px-gutter pt-6 pb-20 bg-primary flex-none">
+    <div class="flex items-center justify-between">
+      <h2
+        class="headline text-primary-contrast m-0 flex items-center w-full max-w-xxxl mr-6"
+      >
+        <ic-icon @scaleIn [icon]="icRole"></ic-icon>
+        <span @fadeInRight class="ml-4 block">Acceso de Permisos por Rol</span>
+      </h2>
+      <button mat-button (click)="back()" class="text-am-base-background">
+        REGRESAR
+      </button>
+    </div>
+  </div>
+  <div class="-mt-14 p-6 pt-0 overflow-hidden flex flex-col md:flex-row gap-2">
+    <form class="w-full" [formGroup]="form">
+      <div class="bg-white rounded-lg p-4 shadow">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Rol</mat-label>
+            <input matInput formControlName="description" />
+            <mat-error *ngIf="form.get('description').hasError('required')">
+              Campo Rol es requerido.
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let state of configs" [value]="state.value">
+                {{ state.label }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('state').hasError('required')">
+              Campo Estado es requerido.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pl-8 pt-4">
+          <h3 class="text-base text-am-main-blue-dark font-normal">Menú</h3>
+          <h3 class="text-base col-span-2 text-am-main-blue-dark font-normal">
+            Permisos
+          </h3>
+        </div>
+        <div
+          class="grid grid-cols-1 sm:grid-cols-3 gap-3 pl-8 pt-4 w-full hRol overflow-auto"
+        >
+          <div>
+            <div *ngFor="let item of menuPermissions; let i = index">
+              <div class="flex my-3 items-center">
+                <div
+                  class="bg-am-purple-light rounded-full w-10 h-10 flex items-center justify-center"
+                >
+                  <mat-icon
+                    class="text-am-main-blue-dark"
+                    [icIcon]="_iconService.getIcon(item.icon)"
+                  ></mat-icon>
+                </div>
+                <div
+                  [class]="
+                    indexMenu == i
+                      ? 'text-am-main-blue-dark font-bold'
+                      : 'text-am-grey-medium font-normal'
+                  "
+                  class="text-sm ml-4 hover:text-am-main-blue-dark cursor-pointer"
+                  (click)="setIndexMenu(i)"
+                >
+                  {{ item.menu }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-span-2 w-full">
+            <div *ngFor="let option of permissions; let j = index">
+              <div class="w-full">
+                <app-checkbox
+                  [label]="option.permissionName"
+                  [cssLabel]="['text-sm', 'text-am-grey-dark', 'font-bold']"
+                  [subLabel]="option.permissionDescription"
+                  [positionEnd]="true"
+                  [key]="j"
+                  [check]="option.selected"
+                  (checked)="optionChecked(option)"
+                >
+                </app-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-end">
+          <button
+            color="purple"
+            class="bg-accent text-accent-contrast"
+            mat-button
+            type="submit"
+            [disabled]="form.invalid"
+            (click)="roleSave()"
+          >
+            GUARDAR
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

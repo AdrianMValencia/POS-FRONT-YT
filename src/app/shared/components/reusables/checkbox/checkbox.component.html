@@ -1,0 +1,15 @@
+<div
+    class="flex items-center p-4 rounded my-1 w-full h-fit"
+    [ngClass]="classSelect"
+    (click)="changeStatus()">
+    <mat-icon
+    [icIcon]="iconService.getIcon(icon)"
+    [ngClass]="classIcon"
+    class="mr-2 flex-none"
+    [class]="positionEnd ? 'order-last' : ''"
+    ></mat-icon>
+    <div class="flex flex-col flex-1">
+        <span [ngClass]="cssLabel">{{ label }}</span>
+        <span *ngIf="subLabel" [ngClass]="cssSubLabel">{{ subLabel }}</span>
+    </div>
+</div>
